@@ -2,15 +2,14 @@
 
 /**
  * ------------------ 接口 (interface) ---------------------
- * 作用: 用来定义object的数据类型
- *
  * 功能:
- * 1.对对象的形状(shape)进行描述;
- * 2.对类(class)进行抽象;
+ * 1.对对象的形状(shape--数据类型)进行描述;
+ * 2.对类(class)进行抽象; 规定类中必须要有什么属性或者方法
  * 3.Duck Typing(鸭子类型) -> 关注对象如何被使用,而不是对象类型本身
  *
  */
 
+//  -----------------------对象-----------------------
 /**
  * 注意:
  * 定义首字母大写 Person
@@ -31,3 +30,37 @@ let chen: Person = {
   // age: 24,
 }
 // chen.id = 123  // error
+
+//  -----------------------类-----------------------
+interface Radio {
+  switchRadio(): string
+}
+
+interface Battery {
+  checkBatteryStatus(): void
+}
+
+// eg: 类Car和Cellphone都有开关收音机的方法,我们可以通过interface来约束这两个类,使得他们必须实现这个方法(类似于某种约束或者契约)
+// 类使用 implements 实现接口约束
+// 多个接口用逗号隔开
+class Car implements Radio, Battery {
+  switchRadio() {
+    // do something
+    return 'car done'
+  }
+  checkBatteryStatus() {}
+}
+
+// 接口的继承
+interface RadioAndBattery extends Radio, Battery {
+  switchRadioAndCheckBattery(): void
+}
+
+class Cellphone implements RadioAndBattery {
+  switchRadio() {
+    // do something
+    return 'cellphone done'
+  }
+  checkBatteryStatus() {}
+  switchRadioAndCheckBattery() {}
+}

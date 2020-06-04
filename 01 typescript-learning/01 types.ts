@@ -25,15 +25,15 @@ notSure.getName()
 let numberOrString: number | string = '123'
 numberOrString = 24
 
-// 数组: 类型[]
-let arrOfNumbers: number[] = [1, 2, 3]
+// 数组: 类型[]  或者 接口+泛型
+let arrOfNumber: number[] = [1, 2, 3]
 let arrOfString: Array<string> = ['123', '456']
 
 function test() {
   console.log(arguments)
 }
 
-// 元组
+// 元组 Tuple
 let userInfo: [string?, number?] = ['chen', 24]
 
 // 类型推论
