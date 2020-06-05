@@ -1,5 +1,6 @@
 # Description
 typescript 学习
+https://ts.xcatliu.com/
 
 # 动态类型和静态类型语言
 
@@ -22,6 +23,12 @@ tsc 文件名
 
 # 直接运行ts
 ts-node 文件名
+
+# 创建ts配置文件
+tsc --init
+
+# 使用配置文件生成js文件
+tsc -p ./tsconfig.json
 
 ```
 
