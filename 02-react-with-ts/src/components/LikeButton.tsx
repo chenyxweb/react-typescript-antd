@@ -1,8 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 
-const UseStateDemo: FC = () => {
+const LikeButton: FC = () => {
   const [count, setCount] = useState(0)
   const [btnStatus, setBtnStatus] = useState(true)
+
+  // 不需要清除的effect
+  // 默认情况下,每次渲染都会执行useEffect
+  useEffect(() => {
+    document.title = `点击了 ${count} 次`
+  })
 
   return (
     <div>
@@ -26,4 +32,4 @@ const UseStateDemo: FC = () => {
   )
 }
 
-export default UseStateDemo
+export default LikeButton

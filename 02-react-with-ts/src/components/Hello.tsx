@@ -5,7 +5,7 @@ interface IHelloProps {
 }
 
 const Hello: FC<IHelloProps> = ({ message }) => {
-  return <h1>{message}</h1>
+  return <h3>{message}</h3>
 }
 
 // 设置默认值
