@@ -32,8 +32,9 @@ tsc -p ./tsconfig.json
 
 ```
 
-
-
-
-
+# 学习链接
+- [TypeScript 入门教程 ](https://ts.xcatliu.com/)
+- [深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)
+- [TypeSearch](http://microsoft.github.io/TypeSearch/)
+- [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
 

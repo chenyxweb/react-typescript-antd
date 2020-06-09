@@ -1,6 +1,6 @@
-## useState
+## 01 useState
 
-## useEffect
+## 02 useEffect
 
 - 不需要清除的副作用
 
@@ -68,7 +68,7 @@
 
   
 
-## 自定义hook vs HOC
+## 03 自定义hook vs HOC
 
 ### 基本实现
 
@@ -292,7 +292,7 @@ const WrappedDogShow = withLoader(Dogshow, https://dog.ceo/dog-api/documentation
 <WrappedDogShow />                           
 ```
 
-## useRef  多次渲染之间的纽带
+## 04 useRef  多次渲染之间的纽带
 
 > 1. `useRef` 返回一个可变的 ref 对象，其 `.current` 属性被初始化为传入的参数（`initialValue`）。返回的 ref 对象在组件的整个生命周期内保持不变。
 >
@@ -372,7 +372,7 @@ const refContainer = useRef(initialValue);
     
 ```
 
- ## useContext
+ ## 05 useContext
 
 > 组件之间共享数据, 全局的数据, 例如: 语言,  用户, 主题等
 >
@@ -422,3 +422,21 @@ const style = {
 <button style={style}></button>
 ```
 
+## [06 Hook规则](https://react.docschina.org/docs/hooks-rules.html)
+
+- ### 只在最顶层使用 Hook
+
+  - **不要在循环，条件或嵌套函数中调用 Hook，** 确保总是在你的 React 函数的最顶层调用他们
+
+- ### 只在 React 函数中调用 Hook
+
+  - 在 React 的函数组件中调用 Hook
+  - 在自定义 Hook 中调用其他 Hook 
+
+## 07 useReducer
+
+## 08 useCallback
+
+## 相关链接
+
+- [usehooks.com](https://usehooks.com/) hook的使用demo
