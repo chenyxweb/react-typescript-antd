@@ -165,6 +165,7 @@ const App = () => {
   const [showMouseClick, toggleMouseClick] = useState(true)
   const position = useMousePosition()
 
+  // effect更新-->重新渲染
   const [data, loading] = useURLLoader('https://dog.ceo/api/breeds/image/random', [showMouseClick])
   const imgData = data as IData // 类型断言
 
@@ -291,7 +292,7 @@ const WrappedDogShow = withLoader(Dogshow, https://dog.ceo/dog-api/documentation
 <WrappedDogShow />                           
 ```
 
-## useRef
+## useRef  多次渲染之间的纽带
 
 > 1. `useRef` 返回一个可变的 ref 对象，其 `.current` 属性被初始化为传入的参数（`initialValue`）。返回的 ref 对象在组件的整个生命周期内保持不变。
 >
@@ -371,4 +372,53 @@ const refContainer = useRef(initialValue);
     
 ```
 
-  
+ ## useContext
+
+> 组件之间共享数据, 全局的数据, 例如: 语言,  用户, 主题等
+>
+> 好处: 不需要通过props一层层传递(透传)
+
+```tsx
+// 主题案例
+
+// 主题色
+interface ITheme {
+  [key: string]: { color: string; background: string }
+}
+
+const theme: ITheme = {
+  light: {
+    color: '#000',
+    background: '#eee',
+  },
+  dark: {
+    color: '#fff',
+    background: '#222',
+  },
+}
+
+export const ThemeContext = React.createContext(theme.light)
+
+
+return (
+<ThemeContext.Provider value={globalTheme}>
+    ...
+</ThemeContext.Provider>
+)
+
+
+```
+
+```tsx
+import {useContext } from 'react'
+import { ThemeContext } from '../App'
+
+const theme = useContext(ThemeContext)
+const style = {
+    color: theme.color,
+    backgroundColor: theme.background,
+}
+
+<button style={style}></button>
+```
+

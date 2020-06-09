@@ -1,8 +1,17 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useContext } from 'react'
+import { ThemeContext } from '../App'
 
 const LikeButton: FC = () => {
   const [count, setCount] = useState(0)
   const [btnStatus, setBtnStatus] = useState(true)
+
+  const theme = useContext(ThemeContext)
+  console.log('theme: ', theme)
+
+  const style = {
+    color: theme.color,
+    backgroundColor: theme.background,
+  }
 
   // 不需要清除的effect
   // 默认情况下,每次渲染都会执行useEffect
@@ -16,6 +25,7 @@ const LikeButton: FC = () => {
         onClick={() => {
           setCount(count + 1)
         }}
+        style={style}
       >
         累加器+1: {count}
       </button>
