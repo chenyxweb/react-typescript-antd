@@ -1,3 +1,11 @@
-// 导入样式配置
+// 导入样式变量
 @import './variable';
+
+// 初始化样式文件
 @import './reboot';
+
+// mixin
+@import './mixin';
+
+// button
+@import '../components//Button/style';

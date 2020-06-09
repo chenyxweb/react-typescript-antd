@@ -1,23 +1,25 @@
 import React from 'react'
-import logo from './logo.svg'
-// import './App.css'
+import Button, { ButtonSize, ButtonType } from './components/Button/button'
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
+      <Button disabled>default</Button>
+      <Button type={ButtonType.Primary}>Primary</Button>
+      <Button type={ButtonType.Primary} disabled>
+        Primary-disabled
+      </Button>
+      <Button type={ButtonType.Danger}>Danger</Button>
+      <Button type={ButtonType.Primary} size={ButtonSize.Large}>
+        Primary-large
+      </Button>
+      <Button type={ButtonType.Primary} size={ButtonSize.Small}>
+        Primary-small
+      </Button>
+      <Button type={ButtonType.Link}>link</Button>
+      <Button type={ButtonType.Link} disabled>
+        link
+      </Button>
     </div>
   )
 }

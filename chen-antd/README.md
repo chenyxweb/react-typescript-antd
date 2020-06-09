@@ -5,7 +5,7 @@
 ## 基础色彩系统
 
 ```scss
-// !default 使用者定义过这个变量的话,预置的变量就不会生效了
+// !default 使用者定义过这个变量的话,预置的变量就不会生效了,方便其他开发者重写变量
 // 中性色
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -54,3 +54,22 @@ $dark: $gray-800 !default;
 
 
 
+# 乱七八糟
+
+- [classnames](https://github.com/JedWatson/classnames) 将classnames有条件的连接在一起
+
+- mixin使用(实现复用css代码)
+
+  ```scss
+  // 定义mixin
+  @mixin button-size($padding-y, $padding-x, $font-size, $border-radius) {
+    padding: $padding-y $padding-x;
+    font-size: $font-size;
+    border-radius: $border-radius;
+  }
+  
+  // 使用mixin
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+  ```
+
+  
