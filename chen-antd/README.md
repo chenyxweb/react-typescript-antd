@@ -351,6 +351,124 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
 # 03 测试
 
+## 通用测试框架(JEST)
+
+```js
+// jest.test.js
+test('test common matcher', () => {
+  expect(2 + 2).toBe(4)
+  expect(2 + 2).not.toBe(5)
+})
+
+test('test to be true or false', () => {
+  expect(1).toBeTruthy()
+  expect(0).toBeFalsy()
+})
+
+test('test number', () => {
+  expect(1 + 1).toBe(2)
+  expect(4).toBeGreaterThan(3)
+  expect(2).toBeLessThan(3)
+})
+
+test('test object', () => {
+  expect({ name: 'viking' }).toEqual({ name: 'viking' })
+})
+
+// 运行
+yarn jest jest.test.js --watch
+```
+
+
+
+## React测试工具(React Testing Library)
+
+```tsx
+// setupTests.ts 文件(运行test之前要进行的操作) 
+// import '@testing-library/jest-dom/extend-expect' 让测试支持jest-dom
+
+// 测试用例写在组件同级目录
+import React from 'react'
+import { render, fireEvent } from '@testing-library/react'
+import Button, { ButtonProps } from './button'
+
+test('按钮渲染了么', () => {
+  const wrapper = render(<Button>按钮</Button>) // 渲染button组件
+  const ele = wrapper.queryByText('按钮') // 找这个button
+  expect(ele).toBeTruthy() // 判断是否渲染成功
+  expect(ele).toBeInTheDocument() // js-dom 的方法,更加直观
+})
+
+const defaultProps = {
+  onClick: jest.fn(),
+}
+
+const testProps: ButtonProps = {
+  btnType: 'primary',
+  size: 'lg',
+  className: 'klass',
+}
+
+const disabledProps: ButtonProps = {
+  disabled: true,
+  onClick: jest.fn(),
+}
+describe('test Button component', () => {
+  // 默认按钮
+  it('should render the correct default button', () => {
+    const wrapper = render(<Button {...defaultProps}>Nice</Button>)
+    const element = wrapper.getByText('Nice') as HTMLButtonElement
+    expect(element).toBeInTheDocument()
+    expect(element.tagName).toEqual('BUTTON')
+    expect(element).toHaveClass('btn btn-default')
+    expect(element.disabled).toBeFalsy()
+    fireEvent.click(element)
+    expect(defaultProps.onClick).toHaveBeenCalled()
+  })
+
+  // 不同大小样式的按钮
+  it('should render the correct component based on different props', () => {
+    const wrapper = render(<Button {...testProps}>Nice</Button>)
+    const element = wrapper.getByText('Nice')
+    expect(element).toBeInTheDocument()
+    expect(element).toHaveClass('btn-primary btn-lg klass')
+  })
+
+  // link按钮
+  it('should render a link when btnType equals link and href is provided', () => {
+    const wrapper = render(
+      <Button btnType='link' href='http://dummyurl'>
+        Link
+      </Button>
+    )
+    const element = wrapper.getByText('Link')
+    expect(element).toBeInTheDocument()
+    expect(element.tagName).toEqual('A')
+    expect(element).toHaveClass('btn btn-link')
+  })
+
+  // 禁用的按钮
+  it('should render disabled button when disabled set to true', () => {
+    const wrapper = render(<Button {...disabledProps}>Nice</Button>)
+    const element = wrapper.getByText('Nice') as HTMLButtonElement
+    expect(element).toBeInTheDocument()
+    expect(element.disabled).toBeTruthy()
+    fireEvent.click(element)
+    expect(disabledProps.onClick).not.toHaveBeenCalled()
+  })
+})
+
+```
+
+
+
+```bash
+# 运行测试用例
+yarn test
+
+# 全部打钩说明没问题
+```
+
 
 
 
