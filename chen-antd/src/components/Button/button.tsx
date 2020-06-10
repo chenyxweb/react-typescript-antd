@@ -1,23 +1,24 @@
 import React from 'react'
 import classnames from 'classnames'
 
-export enum ButtonSize {
-  Large = 'lg',
-  Small = 'sm',
-}
+// export enum ButtonSize {
+//   Large = 'lg',
+//   Small = 'sm',
+// }
 
-export enum ButtonType {
-  Default = 'default',
-  Primary = 'primary',
-  Danger = 'danger',
-  Link = 'link',
-}
+// export enum ButtonType {
+//   Default = 'default',
+//   Primary = 'primary',
+//   Danger = 'danger',
+//   Link = 'link',
+// }
 
 interface BaseButtonProps {
   children: React.ReactNode
-  btnType?: ButtonType
-  // type: 'default' | 'primary' | 'danger' | 'link'
-  size?: ButtonSize
+  // btnType?: ButtonType
+  btnType: 'default' | 'primary' | 'danger' | 'link'
+  // size?:ButtonSize
+  size?: 'lg' | 'sm'
   disabled?: boolean
   className?: string
   style?: React.CSSProperties
@@ -38,12 +39,12 @@ const Button: React.FC<ButtonProps> = props => {
     {
       [`btn-${btnType}`]: btnType,
       [`btn-${size}`]: size,
-      disabled: btnType === ButtonType.Link && disabled,
+      disabled: btnType === 'link' && disabled,
     },
     className
   )
 
-  if (btnType === ButtonType.Link) {
+  if (btnType === 'link') {
     // a标签
     return (
       <a href='https://www.baidu.com' className={classes} style={style} {...restProps}>
@@ -61,7 +62,7 @@ const Button: React.FC<ButtonProps> = props => {
 }
 
 Button.defaultProps = {
-  btnType: ButtonType.Default,
+  btnType: 'default',
   disabled: false,
 }
 

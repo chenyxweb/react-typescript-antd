@@ -1,15 +1,17 @@
 import React from 'react'
-import Button, { ButtonSize, ButtonType } from './components/Button/button'
+import Button from './components/Button'
+import Menu from './components/Menu/menu'
+import MenuItem from './components/Menu/menuItem'
 
 function App() {
   return (
     <div className='App'>
-      {/* 各种按钮 */}
+      {/* Button */}
       <Button disabled className={'hahaha'}>
         default
       </Button>
       <Button
-        btnType={ButtonType.Primary}
+        btnType='primary'
         onClick={e => {
           e.preventDefault()
           console.log('click', e)
@@ -17,22 +19,36 @@ function App() {
       >
         Primary
       </Button>
-      <Button btnType={ButtonType.Primary} disabled>
+      <Button btnType='primary' disabled>
         Primary-disabled
       </Button>
-      <Button btnType={ButtonType.Danger}>Danger</Button>
-      <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
+      <Button btnType='danger'>Danger</Button>
+      <Button btnType='primary' size='lg'>
         Primary-large
       </Button>
-      <Button btnType={ButtonType.Primary} size={ButtonSize.Small}>
+      <Button btnType='primary' size='sm'>
         Primary-small
       </Button>
-      <Button btnType={ButtonType.Link} target='_blank'>
+      <Button btnType='link' target='_blank'>
         link
       </Button>
-      <Button btnType={ButtonType.Link} disabled>
+      <Button btnType='link' disabled>
         link-disabled
       </Button>
+
+      {/* Menu */}
+      <Menu
+        defaultIndex={0}
+        // mode='vertical'
+        onSelect={index => {
+          console.log(index)
+        }}
+      >
+        <MenuItem>111</MenuItem>
+        <MenuItem disabled>222</MenuItem>
+        <MenuItem>333</MenuItem>
+        <MenuItem>444</MenuItem>
+      </Menu>
     </div>
   )
 }

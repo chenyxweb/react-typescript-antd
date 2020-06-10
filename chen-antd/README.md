@@ -318,6 +318,21 @@ $progress-bar-transition: width 0.6s ease !default;
 
 > A modern alternative to CSS resets http://necolas.github.io/normalize.css/
 
+
+
+## styles文件夹
+
+```
+- styles
+ - _reboot.scss  // 初始化样式
+ - _variable.scss  // 全局使用的一些变量
+ - _mixin.scss   // 定义mixin
+ - index.scss   // 入口样式文件
+
+```
+
+
+
 ## mixin
 
 ```scss
@@ -336,7 +351,7 @@ $progress-bar-transition: width 0.6s ease !default;
 
 # 02 TypeScript相关
 
-## [交叉类型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types) 和 [转化可选类型](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
+## 01 [交叉类型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types) 和 [转化可选类型](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
 
 ```tsx
 // 交叉类型 既有自定义的类型 又有原生button的类型
@@ -345,6 +360,26 @@ type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElemen
 
 // 将属性都设置成可选的 
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+```
+
+## 02 [字符串字面量类型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#string-literal-types)
+
+```ts
+type Easing = "ease-in" | "ease-out" | "ease-in-out";// 可以代替枚举
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        if (easing === "ease-in") {
+            // ...
+        }
+        else if (easing === "ease-out") {
+        }
+        else if (easing === "ease-in-out") {
+        }
+        else {
+            // error! should not pass null or undefined.
+        }
+    }
+}
 ```
 
 
@@ -463,7 +498,7 @@ describe('test Button component', () => {
 
 
 ```bash
-# 运行测试用例
+# 运行测试代码
 yarn test
 
 # 全部打钩说明没问题
@@ -471,13 +506,35 @@ yarn test
 
 
 
+# 04 Button组件
+
+# 05 Menu组件
+
+
+
 
 
 # 乱七八糟
 
-- [classnames](https://github.com/JedWatson/classnames) 库 将classnames有条件的连接在一起
+- [classnames](https://github.com/JedWatson/classnames)库, 将classnames有条件的连接在一起
+- pointer-events: none; 阻止点击
+- [React.Children.map](https://zh-hans.reactjs.org/docs/react-api.html#reactchildrenmap)
 
+> `React.Children` 提供了用于处理 `this.props.children` 不透明数据结构的实用方法
+>
+> ```js
+> React.Children.map(children, function[(thisArg)])
+> ```
 
+- [React.cloneElement()](https://zh-hans.reactjs.org/docs/react-api.html#cloneelement)
 
-
+> ```js
+> React.cloneElement(
+>   element,
+>   [props],
+>   [...children]
+> )
+> ```
+>
+> 以 `element` 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。新的子元素将取代现有的子元素，而来自原始元素的 `key` 和 `ref` 将被保留
 
