@@ -1,3 +1,8 @@
+// 全局使用的一些变量
+
+// 基础色彩系统
+// !default 使用者定义过这个变量的话,预置的变量就不会生效了,方便其他开发者重写变量
+// 中性色
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -10,6 +15,7 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
 
+// 基础色板, 定义不同的基础色
 $blue: #0d6efd !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
@@ -21,6 +27,7 @@ $green: #52c41a !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
 
+// 系统色板, 系统提示色, 操作提示色
 $primary: $blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;

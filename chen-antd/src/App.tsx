@@ -4,21 +4,34 @@ import Button, { ButtonSize, ButtonType } from './components/Button/button'
 function App() {
   return (
     <div className='App'>
-      <Button disabled>default</Button>
-      <Button type={ButtonType.Primary}>Primary</Button>
-      <Button type={ButtonType.Primary} disabled>
+      {/* 各种按钮 */}
+      <Button disabled className={'hahaha'}>
+        default
+      </Button>
+      <Button
+        btnType={ButtonType.Primary}
+        onClick={e => {
+          e.preventDefault()
+          console.log('click', e)
+        }}
+      >
+        Primary
+      </Button>
+      <Button btnType={ButtonType.Primary} disabled>
         Primary-disabled
       </Button>
-      <Button type={ButtonType.Danger}>Danger</Button>
-      <Button type={ButtonType.Primary} size={ButtonSize.Large}>
+      <Button btnType={ButtonType.Danger}>Danger</Button>
+      <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
         Primary-large
       </Button>
-      <Button type={ButtonType.Primary} size={ButtonSize.Small}>
+      <Button btnType={ButtonType.Primary} size={ButtonSize.Small}>
         Primary-small
       </Button>
-      <Button type={ButtonType.Link}>link</Button>
-      <Button type={ButtonType.Link} disabled>
+      <Button btnType={ButtonType.Link} target='_blank'>
         link
+      </Button>
+      <Button btnType={ButtonType.Link} disabled>
+        link-disabled
       </Button>
     </div>
   )
