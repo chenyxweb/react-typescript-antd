@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { MenuContext } from './menu' // 导入context
 
 export interface MenuItemProps {
-  index?: number
+  index?: string
   disabled?: boolean
   className?: string
   style?: React.CSSProperties
@@ -18,11 +18,12 @@ const MenuItem: FC<MenuItemProps> = ({ index, disabled, className, style, childr
 
   return (
     <li
+      key={index}
       style={style}
       className={classes}
       onClick={() => {
         // 有onSelect 且 disabled===false 且 index为number , 就调用onSelect方法
-        context.onSelect && !disabled && typeof index === 'number' && context.onSelect(index)
+        context.onSelect && !disabled && typeof index === 'string' && context.onSelect(index)
       }}
     >
       {children}

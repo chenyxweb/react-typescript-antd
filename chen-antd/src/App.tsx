@@ -2,6 +2,7 @@ import React from 'react'
 import Button from './components/Button'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
+import SubMenu from './components/Menu/subMenu'
 
 function App() {
   return (
@@ -38,15 +39,20 @@ function App() {
 
       {/* Menu */}
       <Menu
-        defaultIndex={0}
-        // mode='vertical'
+        defaultIndex='0'
+        mode='vertical'
         onSelect={index => {
           console.log(index)
         }}
+        defaultOpenSubMenus={['2']} // 默认展开SubMenu vertical布局才生效
       >
         <MenuItem>111</MenuItem>
         <MenuItem disabled>222</MenuItem>
-        <MenuItem>333</MenuItem>
+        <SubMenu title='333'>
+          <MenuItem>333-1</MenuItem>
+          <MenuItem>333-2</MenuItem>
+          <MenuItem>333-3</MenuItem>
+        </SubMenu>
         <MenuItem>444</MenuItem>
       </Menu>
     </div>
