@@ -308,7 +308,7 @@ const refContainer = useRef(initialValue);
 
 - 获取dom元素 (无论该节点如何改变，React 都会将 ref 对象的 `.current` 属性设置为相应的 DOM 节点)
 
-- 很方便地保存任何可变值 ,这个值在组件的整个生命周期内保持不变(类似于class组件中初始化一个非响应式的值)
+- 很方便地保存任何可变值 ,这个值在组件的整个生命周期内保持不变(类似于class组件中初始化一个非响应式的值),还可以写出闭包的方式实现
 
 - [如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码,则需要使用回调 ref 来实现](https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node)
 

@@ -1,0 +1,40 @@
+.alert {
+  width: 400px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  color: $white;
+  position: relative;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .close {
+    position: absolute;
+    font-size: 24px;
+    right: 20px;
+    top: 12px;
+    transform: translateY(-30%);
+    cursor: pointer;
+  }
+  .title {
+    font-weight: 700;
+  }
+
+  .description {
+    padding-top: 10px;
+  }
+
+  &.default {
+    background-color: $primary;
+  }
+  &.success {
+    background-color: $success;
+  }
+  &.warning {
+    background-color: $warning;
+  }
+  &.danger {
+    background-color: $danger;
+  }
+}

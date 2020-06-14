@@ -3,11 +3,12 @@ import Button from './components/Button'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
+import Alert from './components/Alert/alert'
 
 function App() {
   return (
     <div className='App'>
-      {/* Button */}
+      {/* -----------------Button----------------- */}
       <Button disabled className={'hahaha'}>
         default
       </Button>
@@ -37,10 +38,23 @@ function App() {
         link-disabled
       </Button>
 
-      {/* Menu */}
+      {/*--------------------- Alert--------------------- */}
+      <Alert
+        type='success'
+        title='提示'
+        description='描述文字'
+        closeable
+        onClose={() => {
+          console.log('close-Alert')
+        }}
+      ></Alert>
+
+      <Alert title='哈哈哈'></Alert>
+
+      {/*--------------------- Menu--------------------- */}
       <Menu
         defaultIndex='0'
-        mode='vertical'
+        // mode='vertical'
         onSelect={index => {
           console.log(index)
         }}
