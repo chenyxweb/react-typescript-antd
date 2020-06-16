@@ -364,7 +364,7 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
 ## 02 [字符串字面量类型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#string-literal-types)
 
-```ts
+```tsx
 type Easing = "ease-in" | "ease-out" | "ease-in-out";// 可以代替枚举
 class UIElement {
     animate(dx: number, dy: number, easing: Easing) {
@@ -379,6 +379,19 @@ class UIElement {
             // error! should not pass null or undefined.
         }
     }
+}
+```
+
+## 03 如何实现label传递一个 dom 节点(ts的 type类型如何约束) 
+```tsx
+// 使用 React.ReactNode
+
+<TabItem label={<div>哈哈哈</div>}>111</TabItem>
+
+export interface TabItemProps {
+  index?: number
+  label: React.ReactNode
+  disable?: boolean
 }
 ```
 
@@ -541,7 +554,3 @@ yarn test
 - 数组和字符串都有includes方法
 
 # 疑问
-```js
-        {/* 如何实现label传递一个dom元素 */}
-        {/* <TabItem label={<div>哈哈哈</div>}>111</TabItem> */}
-```

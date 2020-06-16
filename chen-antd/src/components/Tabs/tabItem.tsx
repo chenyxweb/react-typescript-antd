@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 export interface TabItemProps {
   index?: number
-  label: string
+  label: React.ReactNode
   disable?: boolean
 }
 

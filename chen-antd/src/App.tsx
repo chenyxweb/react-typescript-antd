@@ -73,13 +73,14 @@ function App() {
       </Menu>
 
       {/*--------------------- Tabs--------------------- */}
-      <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-        {/* 如何实现label传递一个dom元素 */}
-        {/* <TabItem label={<div>哈哈哈</div>}>111</TabItem> */}
+      <Tabs defaultIndex={1} onSelect={index => console.log(index)}>
+        {/* label 可以传递 dom 节点 */}
+        <TabItem label={<div style={{ fontWeight: 700 }}>000</div>}>000</TabItem>
         <TabItem label='tab1'>111</TabItem>
         <TabItem label='tab2' disable>
           222
         </TabItem>
+        {/* TabItem 的子元素可以是 dom 节点 */}
         <TabItem label='tab3'>
           <p style={{ color: 'red' }}>333</p>
         </TabItem>
