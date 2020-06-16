@@ -9,7 +9,8 @@ interface TabsProps {
 
 const Tabs: FC<TabsProps> = ({ defaultIndex, onSelect, children }) => {
   const [currentIndex, setCurrentIndex] = useState(defaultIndex)
-  let tabsContent
+
+  let tabsContent = null // 内容
   const tabsTitle = () => {
     return React.Children.map(children, (child, index) => {
       // 添加类型
@@ -45,17 +46,11 @@ const Tabs: FC<TabsProps> = ({ defaultIndex, onSelect, children }) => {
     })
   }
 
-  // const tabsContent = () => {
-  //   return React.Children.map(children,(child,index)=>{
-  //     if(child)
-  //   })
-  // }
-
   return (
-    <div>
+    <>
       <ul className='viking-menu'>{tabsTitle()}</ul>
       <div className='tabs-content'>{tabsContent}</div>
-    </div>
+    </>
   )
 }
 
