@@ -4,6 +4,8 @@ import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
 import Alert from './components/Alert/alert'
+import Tabs from './components/Tabs/tabs'
+import TabItem from './components/Tabs/tabItem'
 
 function App() {
   return (
@@ -69,6 +71,22 @@ function App() {
         </SubMenu>
         <MenuItem>444</MenuItem>
       </Menu>
+
+      {/*--------------------- Tabs--------------------- */}
+      <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
+        {/* 如何实现label传递一个dom元素 */}
+        {/* <TabItem label={<div>哈哈哈</div>}>111</TabItem> */}
+        <TabItem label='tab1'>111</TabItem>
+        <TabItem label='tab2' disable>
+          222
+        </TabItem>
+        <TabItem label='tab3'>
+          <p style={{ color: 'red' }}>333</p>
+        </TabItem>
+        <TabItem label='tab4'>
+          <h3>哈哈哈</h3>
+        </TabItem>
+      </Tabs>
     </div>
   )
 }
