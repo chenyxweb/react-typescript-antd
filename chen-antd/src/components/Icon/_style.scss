@@ -1,0 +1,18 @@
+// 创建 map
+$themes: ('primary':$primary,
+  'secondary':$secondary,
+  'success':$success,
+  'info':$info,
+  'warning':$warning,
+  'danger':$danger,
+  'light':$light,
+  'dark':$dark);
+
+
+// 遍历生成样式
+@each $key,
+$value in $themes {
+  .icon-#{$key} {
+    color: $value;
+  }
+}

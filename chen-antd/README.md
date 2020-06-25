@@ -1,4 +1,4 @@
-# 01 样式相关
+# 01 样式相关sass
 
 > [样式初始化](https://github.com/necolas/normalize.css)
 
@@ -347,7 +347,27 @@ $progress-bar-transition: width 0.6s ease !default;
 @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
 ```
 
+## @each 遍历生成样式
+```scss
+// 创建 map
+$themes: ('primary':$primary,
+  'secondary':$secondary,
+  'success':$success,
+  'info':$info,
+  'warning':$warning,
+  'danger':$danger,
+  'light':$light,
+  'dark':$dark);
 
+
+// 遍历生成样式
+@each $key, $value in $themes {
+    // #{} 字符串插值
+  .icon-#{$key} {
+    color: $value;
+  }
+}
+```
 
 # 02 TypeScript相关
 
