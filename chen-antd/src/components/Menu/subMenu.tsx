@@ -2,6 +2,7 @@ import React, { FC, useContext, FunctionComponentElement, useState } from 'react
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
+import Icon from '../Icon/icon'
 
 export interface SubMenuProps {
   index?: string
@@ -12,12 +13,13 @@ export interface SubMenuProps {
 const SubMenu: FC<SubMenuProps> = ({ index, className, title, children }) => {
   const context = useContext(MenuContext)
   // defaultOpenSubMenus 里面有当前SubMenu的index  且 mode为vertical 时 展开
-  const defaultOpened = !!(
-    context.defaultOpenSubMenus?.includes(index as string) && context.mode === 'vertical'
-  )
+  const defaultOpened = !!(context.defaultOpenSubMenus?.includes(index as string) && context.mode === 'vertical')
   const [opened, setOpened] = useState(defaultOpened)
   const classes = classNames('menu-item submenu-item', className, {
     'is-active': context.index.split('-')[0] === index,
+    'is-vertical': context.mode === 'vertical',
+    'is-horizontal': context.mode === 'horizontal',
+    'is-opened': opened,
   })
 
   const submenuClasses = classNames('viking-submenu', { 'menu-opened': opened })
@@ -68,8 +70,9 @@ const SubMenu: FC<SubMenuProps> = ({ index, className, title, children }) => {
 
   return (
     <li key={index} className={classes} {...horizontalEvent}>
-      <div className='submenu-title' {...verticalEvent}>
+      <div className="submenu-title" {...verticalEvent}>
         {title}
+        <Icon icon="angle-down" className="submenu-title-icon"></Icon>
       </div>
       {/* 绝对定位 */}
       {/* 切换 menu-opened 类名控制显示隐藏 */}
