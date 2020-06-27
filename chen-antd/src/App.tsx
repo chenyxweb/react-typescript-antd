@@ -57,7 +57,7 @@ function App() {
       {/*--------------------- Menu--------------------- */}
       <Menu
         defaultIndex='0'
-        // mode='vertical'
+        mode='vertical'
         onSelect={index => {
           console.log(index)
         }}
