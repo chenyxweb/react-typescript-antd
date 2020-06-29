@@ -1,3 +1,7 @@
+参考
+[文档](http://vikingship.xyz/?path=/story/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E8%AF%BE%E7%A8%8B--welcome)
+[npm](https://www.npmjs.com/package/vikingship)
+
 # 01 样式相关sass
 
 > [样式初始化](https://github.com/necolas/normalize.css)
@@ -542,6 +546,9 @@ yarn test
 # 04 Button组件
 
 # 05 Menu组件
+
+# 06 [react-transition-group 实现动画](http://reactcommunity.org/react-transition-group/css-transition)
+
 
 
 

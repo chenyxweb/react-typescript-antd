@@ -7,6 +7,7 @@ import Alert from './components/Alert/alert'
 import Tabs from './components/Tabs/tabs'
 import TabItem from './components/Tabs/tabItem'
 import Icon from './components/Icon/icon'
+import Demo from './components/Demo'
 
 function App() {
   return (
@@ -57,7 +58,7 @@ function App() {
       {/*--------------------- Menu--------------------- */}
       <Menu
         defaultIndex='0'
-        mode='vertical'
+        // mode='vertical'
         onSelect={index => {
           console.log(index)
         }}
@@ -92,6 +93,9 @@ function App() {
 
       {/*--------------------- Icon --------------------- */}
       <Icon icon='arrow-up' size='10x' theme='success'></Icon>
+
+      {/* CSSTransition */}
+      <Demo></Demo>
     </div>
   )
 }

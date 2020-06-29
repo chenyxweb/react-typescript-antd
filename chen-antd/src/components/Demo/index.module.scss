@@ -1,0 +1,22 @@
+.CSSTransition {
+  :global {
+    .default-class {
+      opacity: 0;
+    }
+
+    .my-class-enter {
+      opacity: 0;
+    }
+    .my-class-enter-active {
+      opacity: 1;
+      transition: opacity 200ms;
+    }
+    .my-class-exit {
+      opacity: 1;
+    }
+    .my-class-exit-active {
+      opacity: 0;
+      transition: opacity 200ms;
+    }
+  }
+}

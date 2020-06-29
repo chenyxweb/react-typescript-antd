@@ -1,0 +1,9 @@
+// 创建动画类
+// top进入
+@include zoom-animation('top', scaleY(0), scaleY(1), center top);
+// left进入
+@include zoom-animation('left', scale(0.45, 0.45), scale(1, 1), top left);
+// right进入
+@include zoom-animation('right', scale(0.45, 0.45), scale(1, 1), top right);
+// bottom进入
+@include zoom-animation('bottom', scaleY(0), scaleY(1), center bottom);

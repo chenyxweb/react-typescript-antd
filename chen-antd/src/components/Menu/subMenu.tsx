@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
 import Icon from '../Icon/icon'
+import Transition from '../Transition'
 
 export interface SubMenuProps {
   index?: string
@@ -70,13 +71,21 @@ const SubMenu: FC<SubMenuProps> = ({ index, className, title, children }) => {
 
   return (
     <li key={index} className={classes} {...horizontalEvent}>
-      <div className="submenu-title" {...verticalEvent}>
+      <div className='submenu-title' {...verticalEvent}>
         {title}
-        <Icon icon="angle-down" className="submenu-title-icon"></Icon>
+        <Icon icon='angle-down' className='submenu-title-icon'></Icon>
       </div>
       {/* 绝对定位 */}
       {/* 切换 menu-opened 类名控制显示隐藏 */}
-      <ul className={submenuClasses}>{renderChildren()}</ul>
+      <Transition
+        in={opened}
+        animation='zoom-in-top'
+        addEndListener={() => {
+          console.log('end')
+        }}
+      >
+        <ul className={submenuClasses}>{renderChildren()}</ul>
+      </Transition>
     </li>
   )
 }
