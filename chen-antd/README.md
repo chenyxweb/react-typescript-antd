@@ -547,7 +547,7 @@ yarn test
 
 # 05 Menu组件
 
-# 06 [react-transition-group 实现动画](http://reactcommunity.org/react-transition-group/css-transition)
+# 06 [react-transition-group 实现动画](http://reactcommunity.org/react-transition-group/css-transition) , 封装Transition组件
 
 
 
