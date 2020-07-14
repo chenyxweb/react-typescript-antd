@@ -1,26 +1,33 @@
-// 导入样式变量
+// config
 @import './variable';
 
-// 初始化样式文件
+//layout
 @import './reboot';
 
-// mixin
+//mixin
 @import './mixin';
 
 // animation
 @import './animation';
+// button
 
-// Button
 @import '../components/Button/style';
 
-// Alert
-@import '../components//Alert/style';
+// menu
 
-// Menu
 @import '../components/Menu/style';
 
-// Tabs
-@import '../components/Tabs/style';
-
-// Icon
+// icon
 @import '../components/Icon/style';
+
+// //input
+// @import '../components/Input/style';
+
+// //auto-complete
+// @import '../components/AutoComplete/style';
+
+// //upload
+// @import '../components/Upload/style';
+
+// //progress
+// @import '../components/Progress/style';

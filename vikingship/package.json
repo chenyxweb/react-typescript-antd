@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@storybook/addon-info": "^5.3.19",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,9 +16,11 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-transition-group": "^4.4.0",
+    "babel-loader": "^8.1.0",
     "classnames": "^2.2.6",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-transition-group": "^4.4.1",
@@ -51,6 +54,7 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/preset-create-react-app": "^3.1.2",
-    "@storybook/react": "^5.3.19"
+    "@storybook/react": "^5.3.19",
+    "ts-loader": "^8.0.0"
   }
 }
