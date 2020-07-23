@@ -1,6 +1,5 @@
 # Description
 typescript 学习
-https://ts.xcatliu.com/
 
 # 动态类型和静态类型语言
 
@@ -17,6 +16,10 @@ https://ts.xcatliu.com/
 
 # 安装
 yarn global add typescript
+yarn global add ts-node
+
+# 创建ts配置文件(tsconfig.json)
+tsc --init
 
 # 编译
 tsc 文件名
@@ -24,15 +27,14 @@ tsc 文件名
 # 直接运行ts
 ts-node 文件名
 
-# 创建ts配置文件
-tsc --init
-
 # 使用配置文件生成js文件
 tsc -p ./tsconfig.json
 
 ```
 
 # 学习链接
+- [TypeScript官网](https://www.typescriptlang.org/docs/home.html)
+- [TypeScript中文手册](https://typescript.bootcss.com/)
 - [TypeScript 入门教程 ](https://ts.xcatliu.com/)
 - [深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)
 - [TypeSearch](http://microsoft.github.io/TypeSearch/)
