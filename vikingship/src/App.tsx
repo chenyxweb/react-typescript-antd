@@ -8,7 +8,6 @@ import Tabs from './components/Tabs/tabs'
 import TabItem from './components/Tabs/tabItem'
 import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
-import Transition from './components/Transition'
 
 function App() {
   return (

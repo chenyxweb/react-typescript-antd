@@ -18,8 +18,29 @@ import Button from '../components/Button'
 //   </Button>
 // );
 
-storiesOf('Button', module).add('with text', () => (
-  <Button btnType='danger' onClick={action('clicked')}>
-    按钮
-  </Button>
-))
+// 不同尺寸的按钮
+const ButtonWithSize = () => (
+  <>
+    <Button size='lg'>大按钮</Button>
+    <Button size='sm'>小按钮</Button>
+  </>
+)
+
+// 不同类型的按钮
+const ButtonWithType = () => (
+  <>
+    <Button btnType='default' onClick={action('click', {})}>
+      default按钮
+    </Button>
+    <Button btnType='default' disabled>
+      primary按钮
+    </Button>
+    <Button btnType='primary'>primary按钮</Button>
+    <Button btnType='danger'>danger按钮</Button>
+    <Button btnType='link' href='https://www.bilibili.com'>
+      link按钮
+    </Button>
+  </>
+)
+
+storiesOf('Button', module).add('不同尺寸的按钮', ButtonWithSize).add('不同类型的按钮', ButtonWithType)
