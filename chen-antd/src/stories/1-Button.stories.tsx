@@ -2,6 +2,7 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import Button from '../components/Button'
+import { withInfo } from '@storybook/addon-info'
 
 // export default {
 //   title: 'Button',
@@ -43,4 +44,26 @@ const ButtonWithType = () => (
   </>
 )
 
-storiesOf('Button', module).add('不同尺寸的按钮', ButtonWithSize).add('不同类型的按钮', ButtonWithType)
+storiesOf('Button', module)
+  // 展示组件信息
+  .addDecorator(withInfo)
+  .addParameters({
+    info: {
+      // 支持markdown
+      text: `
+      ### 使用
+      ~~~js
+      import { Button } from 'chen-antd'
+      ~~~
+      `,
+      // 展示信息
+      inline: true,
+    },
+  })
+  .add('不同尺寸的按钮', ButtonWithSize, {
+    info: {
+      // 隐藏组件信息,优先级高于 addParameters
+      // inline: false,
+    },
+  })
+  .add('不同类型的按钮', ButtonWithType)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, ReactNode, CSSProperties, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react'
 import classnames from 'classnames'
 
 // export enum ButtonSize {
@@ -14,24 +14,31 @@ import classnames from 'classnames'
 // }
 
 interface BaseButtonProps {
-  children: React.ReactNode
+  // /** */ 此类型的注释, 可以添加属性描述
+  /** 子节点 */
+  children: ReactNode
   // btnType?: ButtonType
+  /** 按钮类型 */
   btnType: 'default' | 'primary' | 'danger' | 'link'
   // size?:ButtonSize
+  /** 按钮大小 */
   size?: 'lg' | 'sm'
+  /** 是否禁用 */
   disabled?: boolean
+  /** 类名 */
   className?: string
-  style?: React.CSSProperties
+  /** 自定义样式 */
+  style?: CSSProperties
 }
 
 // 交叉类型 既有自定义的类型 又有原生button的类型
-type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>
-type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>
+type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
 
 // 将属性都设置成可选的
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
-const Button: React.FC<ButtonProps> = props => {
+export const Button: FC<ButtonProps> = props => {
   const { className, btnType, size, disabled, children, style, ...restProps } = props
   // btn btn-primary btn-large ...
   const classes = classnames(

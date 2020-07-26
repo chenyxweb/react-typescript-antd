@@ -2,14 +2,19 @@ import React, { FC, useRef } from 'react'
 import classNames from 'classnames'
 
 interface AlertProps {
+  /** 弹框类型 */
   type?: 'default' | 'success' | 'warning' | 'danger'
+  /** 弹框标题 */
   title: string
+  /** 弹框描述 */
   description?: string
+  /** 是否展示关闭按钮 */
   closeable?: boolean
+  /** 关闭回调 */
   onClose?: () => void
 }
 
-const Alert: FC<AlertProps> = ({ type, title, description, closeable, onClose }) => {
+export const Alert: FC<AlertProps> = ({ type, title, description, closeable, onClose }) => {
   const domRef = useRef<HTMLDivElement>(null)
   const classes = classNames('alert', { [type as string]: type })
   return (

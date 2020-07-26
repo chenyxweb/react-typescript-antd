@@ -549,6 +549,69 @@ yarn test
 
 # 06 [react-transition-group 实现动画](http://reactcommunity.org/react-transition-group/css-transition) , 封装Transition组件
 
+# 07 addons 插件系统
+## info 自动添加组件相关信息
+```js
+// 安装
+yarn add @storybook/addon-info
+yarn add @types/storybook__addon-info
+
+// 使用
+import { withInfo } from '@storybook/addon-info'
+
+
+  .addParameters({
+    info: {
+      text:
+        // 支持markdown
+        `
+      这是一个Button组件
+      ## Button
+      ~~~js
+      const a = 'hello'
+      ~~~
+      `,
+      // 展示信息
+      inline: true,
+    },
+  })
+    .add('不同尺寸的按钮', ButtonWithSize, {
+    info: {
+      // 隐藏组件信息,优先级高于 addParameters
+      // inline: false,
+    },
+  })
+```
+
+## react-docgen 自动生成文档
+> 解决之前显示的表格不全的问题
+### [需要注意的问题](https://www.npmjs.com/package/react-docgen-typescript-loader#limitations)
+- 不要使用 React.Component语法 , 用 import React, { Component } from 'react';
+- 默认到处会无效
+```tsx
+export const ColorButton: React.SFC<ColorButtonProps> = props => (
+  <button
+    style={{
+      padding: 40,
+      color: "#eee",
+      backgroundColor: props.color,
+      fontSize: "2rem",
+    }}
+  >
+    {props.children}
+  </button>
+);
+ 
+export default ColorButton;
+```
+
+
+
+
+
+
+
+
 
 
 
