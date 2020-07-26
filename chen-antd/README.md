@@ -584,11 +584,31 @@ import { withInfo } from '@storybook/addon-info'
 ```
 
 ## react-docgen 自动生成文档
-> 解决之前显示的表格不全的问题
+> 解决之前显示的属性列表不全的问题
 ### [需要注意的问题](https://www.npmjs.com/package/react-docgen-typescript-loader#limitations)
 - 不要使用 React.Component语法 , 用 import React, { Component } from 'react';
 - 默认到处会无效
 ```tsx
+interface BaseButtonProps {
+  // /** */ 此类型的注释, 可以添加属性描述
+  /** 子节点 */
+  children: ReactNode
+  // btnType?: ButtonType
+  /** 按钮类型 */
+  btnType: 'default' | 'primary' | 'danger' | 'link'
+  // size?:ButtonSize
+  /** 按钮大小 */
+  size?: 'lg' | 'sm'
+  /** 是否禁用 */
+  disabled?: boolean
+  /** 类名 */
+  className?: string
+  /** 自定义样式 */
+  style?: CSSProperties
+}
+
+// ......
+
 export const ColorButton: React.SFC<ColorButtonProps> = props => (
   <button
     style={{

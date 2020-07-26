@@ -28,7 +28,25 @@
 // // automatically import all files ending in *.stories.js
 // configure(loaderFn, module);
 
-import { configure } from '@storybook/react'
+import { configure, addDecorator, addParameters } from '@storybook/react'
 import '../src/styles/index.scss'
+import React from 'react'
+import { withInfo } from '@storybook/addon-info'
+
+const storyWrapper = (storyFn: any) => (
+  <div style={{ padding: '20px 40px' }}>
+    <h3>组件演示</h3>
+    {storyFn()}
+  </div>
+)
+
+// 对组件位置 添加样式
+addDecorator(storyWrapper)
+
+// 添加组件信息
+addDecorator(withInfo)
+
+// 默认展示信息
+addParameters({ info: { inline: true, header: false } })
 
 configure(require.context('../src', true, /\.stories\.tsx$/), module)

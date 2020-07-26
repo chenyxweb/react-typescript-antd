@@ -1,7 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Alert from '../components/Alert/alert'
-import { withInfo } from '@storybook/addon-info'
 
 const AlertDefault = () => (
   <div>
@@ -19,7 +18,7 @@ const AlertDefault = () => (
 )
 
 storiesOf('Alert', module)
-  .addDecorator(withInfo)
+  // .addDecorator(withInfo)
   .addParameters({
     info: {
       text: `
@@ -29,7 +28,7 @@ storiesOf('Alert', module)
       ~~~
       `,
       // 展示信息
-      inline: true,
+      // inline: true,
     },
   })
   .add('弹框', AlertDefault)

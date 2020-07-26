@@ -7,10 +7,11 @@ export type ThemeProps = 'primary' | 'secondary' | 'success' | 'info' | 'warning
 // 继承 FontAwesomeIcon 的props
 interface IconProps extends FontAwesomeIconProps {
   // 图标颜色
+  /** 图标主题颜色 */
   theme?: ThemeProps
 }
 
-const Icon: FC<IconProps> = props => {
+export const Icon: FC<IconProps> = props => {
   const { className, theme, ...restProps } = props
   const classes = classNames('viking-icon', className, {
     [`icon-${theme}`]: theme,

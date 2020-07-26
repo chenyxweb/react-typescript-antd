@@ -2,7 +2,6 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import Button from '../components/Button'
-import { withInfo } from '@storybook/addon-info'
 
 // export default {
 //   title: 'Button',
@@ -46,7 +45,7 @@ const ButtonWithType = () => (
 
 storiesOf('Button', module)
   // 展示组件信息
-  .addDecorator(withInfo)
+  // .addDecorator(withInfo)
   .addParameters({
     info: {
       // 支持markdown
@@ -57,13 +56,8 @@ storiesOf('Button', module)
       ~~~
       `,
       // 展示信息
-      inline: true,
+      // inline: true, // 已挪到config.tsx中全局配置
     },
   })
-  .add('不同尺寸的按钮', ButtonWithSize, {
-    info: {
-      // 隐藏组件信息,优先级高于 addParameters
-      // inline: false,
-    },
-  })
+  .add('不同尺寸的按钮', ButtonWithSize)
   .add('不同类型的按钮', ButtonWithType)
