@@ -1,7 +1,7 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
-import Button from '../components/Button'
+import { Button } from '../components/Button'
 
 // export default {
 //   title: 'Button',
@@ -50,7 +50,7 @@ storiesOf('Button', module)
     info: {
       // 支持markdown
       text: `
-      ### 使用
+      ### 引入
       ~~~js
       import { Button } from 'chen-antd'
       ~~~

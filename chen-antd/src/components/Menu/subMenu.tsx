@@ -6,12 +6,15 @@ import Icon from '../Icon/icon'
 import Transition from '../Transition'
 
 export interface SubMenuProps {
+  /** 当前子菜单项index */
   index?: string
+  /** 自定义类名 */
   className?: string
+  /** 子菜单标题 */
   title: string
 }
 
-const SubMenu: FC<SubMenuProps> = ({ index, className, title, children }) => {
+export const SubMenu: FC<SubMenuProps> = ({ index, className, title, children }) => {
   const context = useContext(MenuContext)
   // defaultOpenSubMenus 里面有当前SubMenu的index  且 mode为vertical 时 展开
   const defaultOpened = !!(context.defaultOpenSubMenus?.includes(index as string) && context.mode === 'vertical')

@@ -17,14 +17,14 @@ const Demo: FC = () => {
       <CSSTransition in={inProp} timeout={1000} classNames='my-class' unmountOnExit>
         <div>{"I'll receive my-class-* classes"}</div>
       </CSSTransition>
-      <button type='button' onClick={() => setInProp(true)}>
+      <Button type='button' onClick={() => setInProp(true)}>
         Click to Enter
-      </button>
-      <button type='button' onClick={() => setInProp(false)}>
+      </Button>
+      <Button type='button' onClick={() => setInProp(false)}>
         Click to Exit
-      </button>
+      </Button>
 
-      <button
+      <Button
         onClick={() => {
           setTimeout(() => {
             setCount(count + 1)
@@ -34,7 +34,7 @@ const Demo: FC = () => {
         }}
       >
         {count}
-      </button>
+      </Button>
 
       <hr />
       {/* Button 动画 */}

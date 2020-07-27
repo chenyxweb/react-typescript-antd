@@ -22,11 +22,11 @@ storiesOf('Alert', module)
   .addParameters({
     info: {
       text: `
-      ### 使用
-      ~~~js
-      import { Alert } from 'chen-antd'
-      ~~~
-      `,
+        ### 引入
+        ~~~js
+        import { Alert } from 'chen-antd'
+        ~~~
+        `,
       // 展示信息
       // inline: true,
     },

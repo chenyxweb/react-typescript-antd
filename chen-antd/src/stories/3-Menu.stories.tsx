@@ -29,7 +29,7 @@ const VerticalMenu = () => (
     onSelect={index => {
       console.log(index)
     }}
-    // defaultOpenSubMenus={['2']} // 默认展开SubMenu vertical布局才生效
+    defaultOpenSubMenus={['2']} // 默认展开SubMenu vertical布局才生效
   >
     <MenuItem>111</MenuItem>
     <MenuItem disabled>222</MenuItem>
@@ -42,4 +42,16 @@ const VerticalMenu = () => (
   </Menu>
 )
 
-storiesOf('Menu', module).add('水平菜单栏', HorizontalMenu).add('垂直菜单栏', VerticalMenu)
+storiesOf('Menu', module)
+  .addParameters({
+    info: {
+      text: `
+        ### 引入
+        ~~~js
+        import { Menu, MenuItem, SubMenu } from 'chen-antd'
+        ~~~
+        `,
+    },
+  })
+  .add('水平菜单栏', HorizontalMenu)
+  .add('垂直菜单栏', VerticalMenu)

@@ -13,14 +13,12 @@ import classnames from 'classnames'
 //   Link = 'link',
 // }
 
+// /** */ 此类型的注释, 可以添加属性描述
 interface BaseButtonProps {
-  // /** */ 此类型的注释, 可以添加属性描述
   /** 子节点 */
   children: ReactNode
-  // btnType?: ButtonType
   /** 按钮类型 */
   btnType: 'default' | 'primary' | 'danger' | 'link'
-  // size?:ButtonSize
   /** 按钮大小 */
   size?: 'lg' | 'sm'
   /** 是否禁用 */

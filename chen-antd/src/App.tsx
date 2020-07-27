@@ -1,11 +1,8 @@
 import React from 'react'
 import Button from './components/Button'
-import Menu from './components/Menu/menu'
-import MenuItem from './components/Menu/menuItem'
-import SubMenu from './components/Menu/subMenu'
+import { Menu, MenuItem, SubMenu } from './components/Menu'
 import Alert from './components/Alert/alert'
-import Tabs from './components/Tabs/tabs'
-import TabItem from './components/Tabs/tabItem'
+import { Tabs, TabItem } from './components/Tabs'
 import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
 

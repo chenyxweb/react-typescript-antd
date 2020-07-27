@@ -1,24 +1,26 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, Children, FunctionComponentElement, cloneElement } from 'react'
 import { TabItemProps } from './tabItem'
 import classNames from 'classnames'
 
 interface TabsProps {
+  /** 默认选中的tab */
   defaultIndex?: number
+  /** tab选中时的回调 */
   onSelect?: (index: number) => void
 }
 
-const Tabs: FC<TabsProps> = ({ defaultIndex, onSelect, children }) => {
+export const Tabs: FC<TabsProps> = ({ defaultIndex, onSelect, children }) => {
   const [currentIndex, setCurrentIndex] = useState(defaultIndex)
 
   let tabsContent = null // 内容
   const tabsTitle = () => {
-    return React.Children.map(children, (child, index) => {
+    return Children.map(children, (child, index) => {
       // 添加类型
-      let childElement = child as React.FunctionComponentElement<TabItemProps>
+      let childElement = child as FunctionComponentElement<TabItemProps>
       // 只接收TabItem组件
       if (childElement.type.displayName === 'TabItem') {
         // 混入index
-        childElement = React.cloneElement(childElement, { index: index })
+        childElement = cloneElement(childElement, { index: index })
         // 添加类名
         const liClasses = classNames('menu-item', {
           'is-active': currentIndex === index,

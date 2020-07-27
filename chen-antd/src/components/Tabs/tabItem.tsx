@@ -1,12 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 
 export interface TabItemProps {
+  /** 当前tab的index */
   index?: number
-  label: React.ReactNode
+  /** tab栏展示内容 */
+  label: ReactNode
+  /** 是否禁用tab */
   disable?: boolean
 }
 
-const TabItem: FC<TabItemProps> = ({ children }) => {
+export const TabItem: FC<TabItemProps> = ({ children }) => {
   return <div>{children}</div>
 }
 

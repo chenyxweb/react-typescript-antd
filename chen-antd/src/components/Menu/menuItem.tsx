@@ -3,13 +3,17 @@ import classNames from 'classnames'
 import { MenuContext } from './menu' // 导入context
 
 export interface MenuItemProps {
+  /** 当前菜单项index */
   index?: string
+  /** 是否禁用 */
   disabled?: boolean
+  /** 自定义类名 */
   className?: string
+  /** 自定义样式 */
   style?: React.CSSProperties
 }
 
-const MenuItem: FC<MenuItemProps> = ({ index, disabled, className, style, children }) => {
+export const MenuItem: FC<MenuItemProps> = ({ index, disabled, className, style, children }) => {
   const context = useContext(MenuContext) // 使用context
   const classes = classNames('menu-item', className, {
     'is-disabled': disabled,
