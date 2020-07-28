@@ -559,7 +559,6 @@ yarn add @types/storybook__addon-info
 // 使用
 import { withInfo } from '@storybook/addon-info'
 
-
   .addParameters({
     info: {
       text:
@@ -581,6 +580,27 @@ import { withInfo } from '@storybook/addon-info'
       // inline: false,
     },
   })
+```
+
+# 08 Input组件
+## value和defaultValue同时存在的时候,处理方式
+```js
+  if ('value' in props) {
+    delete restProps.defaultValue
+  }
+```
+
+> 另一种添加text的方式(在组件的上方)
+```tsx
+/**
+ * ### 引入
+ * ~~~js
+ * import { Input } from 'chen-antd'
+ * ~~~
+ */
+export const Input: FC<InputProps> = props => {
+  // ...
+}
 ```
 
 ## react-docgen 自动生成文档

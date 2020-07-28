@@ -5,6 +5,7 @@ import Alert from './components/Alert/alert'
 import { Tabs, TabItem } from './components/Tabs'
 import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
+import Input from './components/Input/input'
 
 function App() {
   return (
@@ -91,8 +92,12 @@ function App() {
       {/*--------------------- Icon --------------------- */}
       <Icon icon='arrow-up' size='10x' theme='success'></Icon>
 
-      {/* CSSTransition */}
+      {/* ---------------- CSSTransition ----------------- */}
       <Demo></Demo>
+
+      {/*--------------------- Input --------------------- */}
+      <Input style={{ width: 200 }}></Input>
+      <Input style={{ width: 200 }} disabled></Input>
     </div>
   )
 }
