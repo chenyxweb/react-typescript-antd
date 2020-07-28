@@ -375,7 +375,7 @@ $themes: ('primary':$primary,
 
 # 02 TypeScript相关
 
-## 01 [交叉类型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types) 和 [转化可选类型](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
+## 01 [交叉类型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#intersection-types) 和 [可选类型](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
 
 ```tsx
 // 交叉类型 既有自定义的类型 又有原生button的类型
@@ -547,10 +547,10 @@ yarn test
 
 # 05 Menu组件
 
-# 06 [react-transition-group 实现动画](http://reactcommunity.org/react-transition-group/css-transition) , 封装Transition组件
+# 06 [react-transition-group 实现动画](http://reactcommunity.org/react-transition-group/css-transition) 
 
 # 07 addons 插件系统
-## info 自动添加组件相关信息
+>  info 自动添加组件相关信息
 ```js
 // 安装
 yarn add @storybook/addon-info
@@ -603,7 +603,7 @@ export const Input: FC<InputProps> = props => {
 }
 ```
 
-## react-docgen 自动生成文档
+# 09 react-docgen 自动生成文档
 > 解决之前显示的属性列表不全的问题
 ### [需要注意的问题](https://www.npmjs.com/package/react-docgen-typescript-loader#limitations)
 - 不要使用 React.Component语法 , 用 import React, { Component } from 'react';
@@ -657,30 +657,48 @@ export default ColorButton;
 
 
 
-# 乱七八糟
+# 99 乱七八糟
 
 - [classnames](https://github.com/JedWatson/classnames)库, 将classnames有条件的连接在一起
+
 - pointer-events: none; 阻止点击
+
 - [React.Children.map](https://zh-hans.reactjs.org/docs/react-api.html#reactchildrenmap)
 
-> `React.Children` 提供了用于处理 `this.props.children` 不透明数据结构的实用方法
->
-> ```js
-> React.Children.map(children, function[(thisArg)])
-> ```
+    > `React.Children` 提供了用于处理 `this.props.children` 不透明数据结构的实用方法
+    >
+    > ```js
+    > React.Children.map(children, function[(thisArg)])
+    > ```
 
 - [React.cloneElement()](https://zh-hans.reactjs.org/docs/react-api.html#cloneelement)
 
-> ```js
-> React.cloneElement(
->   element,
->   [props],
->   [...children]
-> )
-> ```
->
-> 以 `element` 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。新的子元素将取代现有的子元素，而来自原始元素的 `key` 和 `ref` 将被保留
+    > ```js
+    > React.cloneElement(
+    >   element,
+    >   [props],
+    >   [...children]
+    > )
+    > ```
+    >
+    > 以 `element` 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。新的子元素将取代现有的子元素，而来自原始元素的 `key` 和 `ref` 将被保留
 
 - 数组和字符串都有includes方法
 
-# 疑问
+- 判断Promise的类型
+
+    > ```tsx
+    > const promiseFetch = fetch(`https://api.github.com/search/users?q=${value}`)
+    >             .then(res => res.json())
+    >             .then(res => {
+    >               console.log(res)
+    >               return res.items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
+    >             })
+    > 
+    > if(promiseFetch instanceof Promise){
+    > // 是Promise
+    > }
+    > 
+    > ```
+    >
+

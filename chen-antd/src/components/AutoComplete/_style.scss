@@ -2,7 +2,9 @@
   position: relative;
 }
 .viking-suggestion-list {
-  list-style:none;
+  max-height: 300px;
+  overflow: auto;
+  list-style: none;
   padding-left: 0;
   white-space: nowrap;
   position: absolute;
@@ -28,8 +30,8 @@
       background: $menu-item-active-color !important;
       color: $white !important;
     }
-    &:hover {
-      color: $menu-item-active-color !important;
-    }
+    // &:hover {
+    //   color: $menu-item-active-color !important;
+    // }
   }
 }

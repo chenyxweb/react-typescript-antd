@@ -8,6 +8,19 @@ import Demo from './components/Demo'
 import Input from './components/Input/input'
 import AutoComplete from './components/AutoComplete/autoComplete'
 
+const listData = [
+  { value: 'bradley', number: 11 },
+  { value: 'pope', number: 1 },
+  { value: 'caruso', number: 4 },
+  { value: 'cook', number: 2 },
+  { value: 'cousins', number: 15 },
+  { value: 'james', number: 23 },
+  { value: 'AD', number: 3 },
+  { value: 'green', number: 14 },
+  { value: 'howard', number: 39 },
+  { value: 'kuzma', number: 0 },
+]
+
 function App() {
   return (
     <div className='App'>
@@ -102,24 +115,22 @@ function App() {
 
       {/*--------------------- AutoComplete --------------------- */}
       <AutoComplete
-        options={[
-          { value: '1' },
-          { value: '12' },
-          { value: '123' },
-          { value: '1234' },
-          { value: '12345' },
-          { value: '123456' },
-          { value: '1234567' },
-        ]}
         placeholder='AutoComplete'
         style={{ width: 200 }}
         fetchSuggestions={value => {
-          console.log(value)
+          // 拿到输入的数据, 过滤出需要的数据
+          return listData.filter(item => item.value.toUpperCase().includes(value.toUpperCase()))
+          // return fetch(`https://api.github.com/search/users?q=${value}`)
+          //   .then(res => res.json())
+          //   .then(res => {
+          //     console.log(res)
+          //     return res.items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
+          //   })
         }}
         onSelect={item => {
           console.log(item)
         }}
-        renderOption={item => <div>{item.value + '哈哈哈'}</div>}
+        // renderOption={item => <div>{item.value}</div>}
       ></AutoComplete>
     </div>
   )
