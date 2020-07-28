@@ -41,7 +41,7 @@ const Demo: FC = () => {
       <Button onClick={() => setToggle(!toggle)}>Toggle</Button>
       <br />
 
-      <Transition animation='zoom-in-left' in={toggle} timeout={300} addEndListener={() => {}}>
+      <Transition animation='zoom-in-left' in={toggle} timeout={300}>
         <div>
           <p>zoom-in-left zoom-in-left zoom-in-left</p>
           <p>zoom-in-left zoom-in-left zoom-in-left</p>
@@ -50,7 +50,7 @@ const Demo: FC = () => {
         </div>
       </Transition>
 
-      <Transition needWrapper animation='zoom-in-left' in={toggle} timeout={300} addEndListener={() => {}}>
+      <Transition needWrapper animation='zoom-in-left' in={toggle} timeout={300}>
         <Button btnType='primary' size='lg'>
           按钮
         </Button>

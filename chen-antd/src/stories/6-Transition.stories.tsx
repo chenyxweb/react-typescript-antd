@@ -13,7 +13,7 @@ const TransitionDemo = () => {
       <Button onClick={() => setToggle(!toggle)}>Toggle</Button>
       <br />
 
-      <Transition animation='zoom-in-left' in={toggle} timeout={300} addEndListener={() => {}}>
+      <Transition animation='zoom-in-left' in={toggle} timeout={300}>
         <div>
           <p>zoom-in-left zoom-in-left zoom-in-left</p>
           <p>zoom-in-left zoom-in-left zoom-in-left</p>
@@ -24,7 +24,7 @@ const TransitionDemo = () => {
 
       <br />
 
-      <Transition animation='zoom-in-top' in={toggle} timeout={300} addEndListener={() => {}}>
+      <Transition animation='zoom-in-top' in={toggle} timeout={300}>
         <div>
           <p>zoom-in-top zoom-in-top zoom-in-top</p>
           <p>zoom-in-top zoom-in-top zoom-in-top</p>
@@ -33,7 +33,7 @@ const TransitionDemo = () => {
         </div>
       </Transition>
 
-      <Transition needWrapper animation='zoom-in-left' in={toggle} timeout={300} addEndListener={() => {}}>
+      <Transition needWrapper animation='zoom-in-left' in={toggle} timeout={300}>
         <Button btnType='primary' size='lg'>
           按钮
         </Button>
@@ -41,7 +41,7 @@ const TransitionDemo = () => {
 
       <br />
 
-      <Transition needWrapper animation='zoom-in-top' in={toggle} timeout={300} addEndListener={() => {}}>
+      <Transition needWrapper animation='zoom-in-top' in={toggle} timeout={300}>
         <Button btnType='primary' size='lg'>
           按钮
         </Button>

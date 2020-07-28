@@ -9,7 +9,7 @@ type InputSize = 'lg' | 'sm'
  * 问题:size和InputHTMLAttributes内置的size冲突
  * 解决: 1. 修改自定义的size; 2. 使用Omit<T,K>  : 从T选取所有属性,然后删除K来构造新的类型
  */
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /** 是否禁用 */
   disabled?: boolean
   /** Input组件大小 */

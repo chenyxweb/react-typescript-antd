@@ -80,13 +80,7 @@ export const SubMenu: FC<SubMenuProps> = ({ index, className, title, children })
       </div>
       {/* 绝对定位 */}
       {/* 切换 menu-opened 类名控制显示隐藏 */}
-      <Transition
-        in={opened}
-        animation='zoom-in-top'
-        addEndListener={() => {
-          console.log('end')
-        }}
-      >
+      <Transition in={opened} animation='zoom-in-top' timeout={300}>
         <ul className={submenuClasses}>{renderChildren()}</ul>
       </Transition>
     </li>

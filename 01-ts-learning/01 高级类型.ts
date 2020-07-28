@@ -106,3 +106,14 @@ const requiredType: Required<A & B> = {
   sex: 'male',
   height: 180,
 }
+
+// 5.3 Omit<T,K>  : 从T选取所有属性,然后删除K来构造新的类型
+type IOmit = Omit<A & B, 'sex'> // 删除交叉类型里面的sex属性
+
+const IOmitData: IOmit = {
+  id: 123,
+  name: 'chen',
+  // sex:'male'  // error
+  age: 18,
+  height: 180,
+}

@@ -6,6 +6,7 @@ import { Tabs, TabItem } from './components/Tabs'
 import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
 import Input from './components/Input/input'
+import AutoComplete from './components/AutoComplete/autoComplete'
 
 function App() {
   return (
@@ -90,7 +91,7 @@ function App() {
       </Tabs>
 
       {/*--------------------- Icon --------------------- */}
-      <Icon icon='arrow-up' size='10x' theme='success'></Icon>
+      <Icon icon='arrow-up' size='2x' theme='success'></Icon>
 
       {/* ---------------- CSSTransition ----------------- */}
       <Demo></Demo>
@@ -98,6 +99,28 @@ function App() {
       {/*--------------------- Input --------------------- */}
       <Input style={{ width: 200 }}></Input>
       <Input style={{ width: 200 }} disabled></Input>
+
+      {/*--------------------- AutoComplete --------------------- */}
+      <AutoComplete
+        options={[
+          { value: '1' },
+          { value: '12' },
+          { value: '123' },
+          { value: '1234' },
+          { value: '12345' },
+          { value: '123456' },
+          { value: '1234567' },
+        ]}
+        placeholder='AutoComplete'
+        style={{ width: 200 }}
+        fetchSuggestions={value => {
+          console.log(value)
+        }}
+        onSelect={item => {
+          console.log(item)
+        }}
+        renderOption={item => <div>{item.value + '哈哈哈'}</div>}
+      ></AutoComplete>
     </div>
   )
 }
