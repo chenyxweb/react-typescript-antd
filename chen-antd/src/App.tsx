@@ -119,13 +119,14 @@ function App() {
         style={{ width: 200 }}
         fetchSuggestions={value => {
           // 拿到输入的数据, 过滤出需要的数据
-          return listData.filter(item => item.value.toUpperCase().includes(value.toUpperCase()))
-          // return fetch(`https://api.github.com/search/users?q=${value}`)
-          //   .then(res => res.json())
-          //   .then(res => {
-          //     console.log(res)
-          //     return res.items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
-          //   })
+          // return listData.filter(item => item.value.toUpperCase().includes(value.toUpperCase()))
+
+          return fetch(`https://api.github.com/search/users?q=${value}`)
+            .then(res => res.json())
+            .then(res => {
+              console.log(res)
+              return res.items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
+            })
         }}
         onSelect={item => {
           console.log(item)

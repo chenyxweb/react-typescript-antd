@@ -1,8 +1,9 @@
-import React, { FC, ChangeEvent, useState, ReactElement } from 'react'
+import React, { FC, ChangeEvent, useState, ReactElement, useEffect, KeyboardEvent, useRef } from 'react'
 import Input, { InputProps } from '../Input/input'
 import Transition from '../Transition'
 import Icon from '../Icon/icon'
 import classNames from 'classnames'
+import useDebounce from '../../hooks/useDebounce'
 
 interface DataSourceObject {
   value: string
@@ -11,7 +12,7 @@ interface DataSourceObject {
 export type DataSourceType<T = {}> = T & DataSourceObject
 
 interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
-  /** input时 实时返回输入框数据 */
+  /** input时 实时获取输入框数据. 返回值为过滤后的列表数据或者promise,列表数据提供给组件渲染使用 */
   fetchSuggestions: (inputValue: string) => DataSourceType[] | Promise<DataSourceType[]>
   /** 选择下拉列表时 */
   onSelect?: (item: DataSourceType) => void
@@ -19,6 +20,13 @@ interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
   renderOption?: (item: DataSourceType) => ReactElement
 }
 
+/**
+ * ### 引入
+ * ~~~js
+ * import { AutoComplete } form 'chen-antd'
+ *
+ * ~~~
+ */
 export const AutoComplete: FC<AutoCompleteProps> = props => {
   const { onSelect, fetchSuggestions, renderOption, ...restProps } = props
   const [inputValue, setInputValue] = useState('') // 输入框内容
@@ -27,25 +35,35 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
   const [showDropdown, setShowDropdown] = useState(false) // 是否展示下拉列表
   const [highlightIndex, setHighlightIndex] = useState(-1) // 默认高亮的listItem
 
-  // 处理input change
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value.trim()
-    setInputValue(inputValue)
+  const [debounceInputValue] = useDebounce(inputValue, 500)
+  // console.log(debounceInputValue)
 
-    if (!inputValue.trim()) {
+  const useEffectFlag = useRef(true) // useRef 创建的 useEffectFlag 不会随着函数组件的重新调用而改变
+  // enter 之后 --> inputValue 改变 --> useEffect 调用,  这个过程是不需要发生的,需要一个flag记录是否需要调用useEffect
+
+  // 当debounceInputValue改变时, 设置下拉框展示,loading状态,列表数据
+  // 防抖
+  useEffect(() => {
+    if (!useEffectFlag.current) return
+    if (!debounceInputValue.trim()) {
       // 为空
       setFilterOptions([])
       setShowDropdown(false)
+      setLoading(false)
     } else {
       // 不为空
-      const result = fetchSuggestions(inputValue)
+      const result = fetchSuggestions(debounceInputValue)
       if (result instanceof Promise) {
-        // 如果函数返回值为promise, 等promise的结果
+        // 如果函数返回值为promise, 等promise的结果--请求获取数据
         setLoading(true)
-        result.then(res => {
-          setLoading(false)
-          setFilterOptions(res)
-        })
+        setFilterOptions([])
+        result
+          .then(res => {
+            setLoading(false)
+            setFilterOptions(res)
+            setShowDropdown(true)
+          })
+          .catch(err => console.log(err))
       } else {
         // 如果返回值为 DataSourceType[]
         setFilterOptions(result)
@@ -56,6 +74,15 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
         }
       }
     }
+  }, [fetchSuggestions, debounceInputValue])
+
+  // 处理input change
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value.trim()
+    setInputValue(value)
+    // 去掉高亮项
+    setHighlightIndex(-1)
+    useEffectFlag.current = true
   }
 
   // 点击列表项时
@@ -68,9 +95,62 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
     onSelect && onSelect(item)
   }
 
+  // 键盘按下时
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // console.log('keyCode', e.keyCode)
+    let index: number = highlightIndex
+    switch (e.keyCode) {
+      case 38:
+        // 上箭头 --
+        index = highlightIndex - 1
+        if (index <= 0) {
+          setHighlightIndex(0)
+        } else {
+          setHighlightIndex(index)
+        }
+        break
+
+      case 40:
+        // 下箭头 ++
+        index = highlightIndex + 1
+        if (index >= filterOptions.length - 1) {
+          setHighlightIndex(filterOptions.length - 1)
+        } else {
+          setHighlightIndex(index)
+        }
+        break
+
+      case 27:
+        // esc
+        // 隐藏
+        setShowDropdown(false)
+
+        break
+
+      case 13:
+        // enter
+        // 设置当前index项为选中
+        const dataItem = filterOptions.find((item, i) => i === index)
+        if (dataItem?.value) {
+          const selectValue = dataItem?.value || ''
+          setInputValue(selectValue)
+          // 清空列表
+          setFilterOptions([])
+          // 返回给使用者
+          onSelect && onSelect(dataItem)
+
+          useEffectFlag.current = false
+        }
+        break
+
+      default:
+        break
+    }
+  }
+
   return (
     <div className='viking-auto-complete'>
-      <Input value={inputValue} {...restProps} onChange={handleInputChange} />
+      <Input value={inputValue} {...restProps} onChange={handleInputChange} onKeyDown={handleKeyDown} />
       <Transition
         in={showDropdown || loading}
         animation='zoom-in-top'

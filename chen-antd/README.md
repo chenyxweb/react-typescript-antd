@@ -645,7 +645,29 @@ export const ColorButton: React.SFC<ColorButtonProps> = props => (
 export default ColorButton;
 ```
 
+# 10 AutoComplete组件
 
+###  01 阻止不必要的useEffect调用
+
+```ts
+// 场景
+// enter 之后 --> inputValue 改变 --> useEffect 调用,  这个过程是不需要发生的,需要一个flag记录是否需要调用useEffect
+
+// useRef 创建的 useEffectFlag(可以看成一个普通的对象) 不会随着函数组件的重新调用而改变
+const useEffectFlag = useRef(true) 
+  
+// enter时
+useEffectFlag.current===false
+
+// input时
+useEffectFlag.current===true
+
+useEffect(()=>{
+    if(!useEffectFlag.current) return
+    // 否则可以执行后面的逻辑
+})
+
+```
 
 
 
@@ -659,11 +681,11 @@ export default ColorButton;
 
 # 99 乱七八糟
 
-- [classnames](https://github.com/JedWatson/classnames)库, 将classnames有条件的连接在一起
+### 01  [classnames](https://github.com/JedWatson/classnames)库, 将classnames有条件的连接在一起
 
-- pointer-events: none; 阻止点击
+### 02  pointer-events: none; 阻止点击
 
-- [React.Children.map](https://zh-hans.reactjs.org/docs/react-api.html#reactchildrenmap)
+### 03  [React.Children.map](https://zh-hans.reactjs.org/docs/react-api.html#reactchildrenmap)
 
     > `React.Children` 提供了用于处理 `this.props.children` 不透明数据结构的实用方法
     >
@@ -671,34 +693,87 @@ export default ColorButton;
     > React.Children.map(children, function[(thisArg)])
     > ```
 
-- [React.cloneElement()](https://zh-hans.reactjs.org/docs/react-api.html#cloneelement)
+### 04  [React.cloneElement()](https://zh-hans.reactjs.org/docs/react-api.html#cloneelement)
 
-    > ```js
-    > React.cloneElement(
-    >   element,
-    >   [props],
-    >   [...children]
-    > )
-    > ```
-    >
-    > 以 `element` 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。新的子元素将取代现有的子元素，而来自原始元素的 `key` 和 `ref` 将被保留
+     ```js
+     React.cloneElement(
+       element,
+       [props],
+       [...children]
+     )
+     ```
+    
+     以 `element` 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。新的子元素将取代现有的子元素，而来自原始元素的 `key` 和 `ref` 将被保留
 
-- 数组和字符串都有includes方法
+### 05  数组和字符串都有includes方法
 
-- 判断Promise的类型
+### 06  判断Promise的类型
 
-    > ```tsx
-    > const promiseFetch = fetch(`https://api.github.com/search/users?q=${value}`)
-    >             .then(res => res.json())
-    >             .then(res => {
-    >               console.log(res)
-    >               return res.items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
-    >             })
-    > 
-    > if(promiseFetch instanceof Promise){
-    > // 是Promise
-    > }
-    > 
-    > ```
-    >
+     ```tsx
+     const promiseFetch = fetch(`https://api.github.com/search/users?q=${value}`)
+              .then(res => res.json())
+              .then(res => {
+                console.log(res)
+                return res.items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
+              })
+     
+     if(promiseFetch instanceof Promise){
+     // 是Promise
+     } 
 
+
+​     // promiseFetch 为一个Promise
+​     // .then  拿到Promise内部return的结果,, 相当于resolve(结果)
+​     promiseFetch.then(res=>console.log(res))
+​     
+
+     ```
+
+
+### 07  自定义hook
+
+  > // debounce
+  >
+  > ```ts
+  > import { useEffect, useState } from 'react'
+  > 
+  > /**
+  >  * @param value input框的值
+  >  * @param delay 延时 ms
+  >  */
+  > const useDebounce = (value: string, delay: number) => {
+  >   const [debounceInputValue, setDebounceInputValue] = useState(value)
+  > 
+  >   // 当value改变时 触发useEffect
+  >   useEffect(() => {
+  >     let timeId = setTimeout(() => {
+  >       // 如果delay延时消失之后还没有输入操作的话,修改string
+  >       setDebounceInputValue(value)
+  >     }, delay)
+  > 
+  >     // 每一次重新执行useEffect 都会调用return内的函数
+  >     return () => {
+  >       // 如果delay时间隔时间内,有重新输入操作, 重置上一次设置的定时器
+  >       clearTimeout(timeId)
+  >     }
+  >   }, [delay, value])
+  > 
+  >   // 返回debounce后的input框的值
+  >   return [debounceInputValue]
+  > }
+  > 
+  > export default useDebounce
+  > 
+  > ```
+  >
+  > ```ts
+  > // 使用
+  > const [debounceInputValue] = useDebounce(inputValue, 500)
+  > 
+  > // 当debounceInputValue改变时, useEffect才会执行
+  > useEffect(()=>{
+  >     // 防抖 做想要做的事情
+  > },[debounceInputValue])
+  > 
+  > ```
+  >
