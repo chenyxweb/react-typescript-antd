@@ -672,7 +672,37 @@ useEffect(()=>{
 ###  02 点击组件外关闭列表
 > 点击组件外部关闭列表
 > 思路:  给document注册点击事件, 如果组件不包括点击的这个元素, 就关闭下拉菜单
+```tsx
+  // 1. 将ref绑定给组件最外层元素
+    const autoCompleteRef = useRef<HTMLDivElement>(null)
 
+    return (
+      <div className='viking-auto-complete' ref={autoCompleteRef}>
+      // ...
+      </div>
+    )
+
+  // 2. 给document注册点击事件, 如果组件不包括点击的这个元素, 就关闭下拉菜单
+    useEffect(() => {
+      const handleClick = (e: MouseEvent) => {
+        console.log(e.target)
+        // 如果 dom 中没有这个节点 或者这个节点包括了点击的这个元素 return
+        if (!autoCompleteRef.current || autoCompleteRef.current.contains(e.target as HTMLElement)) return
+        // 关闭下拉菜单
+        setFilterOptions([])
+      }
+
+      document.addEventListener('click', handleClick)
+      return () => {
+        document.removeEventListener('click', handleClick)
+      }
+    }, [])
+
+  // 3. 封装成自定义hook
+  
+  // ...
+
+```
 
 
 
