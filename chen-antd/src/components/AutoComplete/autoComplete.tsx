@@ -4,6 +4,7 @@ import Transition from '../Transition'
 import Icon from '../Icon/icon'
 import classNames from 'classnames'
 import useDebounce from '../../hooks/useDebounce'
+import useClickOutsideComponent from '../../hooks/useClickOutsideComponent'
 
 interface DataSourceObject {
   value: string
@@ -78,20 +79,28 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
     }
   }, [fetchSuggestions, debounceInputValue])
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      console.log(e.target)
-      // 如果 dom 中没有这个节点 或者这个节点包括了点击的这个元素 return
-      if (!autoCompleteRef.current || autoCompleteRef.current.contains(e.target as HTMLElement)) return
-      // 关闭下拉菜单
-      setFilterOptions([])
-    }
+  // 点击组件外关闭下拉菜单功能
 
-    document.addEventListener('click', handleClick)
-    return () => {
-      document.removeEventListener('click', handleClick)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const handleClick = (e: MouseEvent) => {
+  //     console.log(e.target)
+  //     // 如果 dom 中没有这个节点 或者这个节点包括了点击的这个元素 return
+  //     if (!autoCompleteRef.current || autoCompleteRef.current.contains(e.target as HTMLElement)) return
+  //     // 关闭下拉菜单
+  //     setFilterOptions([])
+  //   }
+
+  //   document.addEventListener('click', handleClick)
+  //   return () => {
+  //     document.removeEventListener('click', handleClick)
+  //   }
+  // }, [])
+
+  // 封装成自定义hook
+  useClickOutsideComponent(autoCompleteRef, () => {
+    // 关闭下拉菜单
+    setFilterOptions([])
+  })
 
   // 处理input change
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
