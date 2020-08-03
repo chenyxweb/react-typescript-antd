@@ -35,11 +35,13 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
   const [showDropdown, setShowDropdown] = useState(false) // 是否展示下拉列表
   const [highlightIndex, setHighlightIndex] = useState(-1) // 默认高亮的listItem
 
-  const [debounceInputValue] = useDebounce(inputValue, 500)
+  const [debounceInputValue] = useDebounce(inputValue, 500) // 生成延时更新的数据 debounceInputValue
   // console.log(debounceInputValue)
 
   const useEffectFlag = useRef(true) // useRef 创建的 useEffectFlag 不会随着函数组件的重新调用而改变
   // enter 之后 --> inputValue 改变 --> useEffect 调用,  这个过程是不需要发生的,需要一个flag记录是否需要调用useEffect
+
+  const autoCompleteRef = useRef<HTMLDivElement>(null)
 
   // 当debounceInputValue改变时, 设置下拉框展示,loading状态,列表数据
   // 防抖
@@ -76,13 +78,28 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
     }
   }, [fetchSuggestions, debounceInputValue])
 
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      console.log(e.target)
+      // 如果 dom 中没有这个节点 或者这个节点包括了点击的这个元素 return
+      if (!autoCompleteRef.current || autoCompleteRef.current.contains(e.target as HTMLElement)) return
+      // 关闭下拉菜单
+      setFilterOptions([])
+    }
+
+    document.addEventListener('click', handleClick)
+    return () => {
+      document.removeEventListener('click', handleClick)
+    }
+  }, [])
+
   // 处理input change
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value.trim()
     setInputValue(value)
     // 去掉高亮项
     setHighlightIndex(-1)
-    useEffectFlag.current = true
+    useEffectFlag.current = true // 可以开始查询列表
   }
 
   // 点击列表项时
@@ -93,6 +110,7 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
     setFilterOptions([])
     // 返回给使用者
     onSelect && onSelect(item)
+    useEffectFlag.current = false // 阻止查询列表
   }
 
   // 键盘按下时
@@ -139,7 +157,7 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
           // 返回给使用者
           onSelect && onSelect(dataItem)
 
-          useEffectFlag.current = false
+          useEffectFlag.current = false // 阻止查询列表
         }
         break
 
@@ -149,7 +167,7 @@ export const AutoComplete: FC<AutoCompleteProps> = props => {
   }
 
   return (
-    <div className='viking-auto-complete'>
+    <div className='viking-auto-complete' ref={autoCompleteRef}>
       <Input value={inputValue} {...restProps} onChange={handleInputChange} onKeyDown={handleKeyDown} />
       <Transition
         in={showDropdown || loading}
