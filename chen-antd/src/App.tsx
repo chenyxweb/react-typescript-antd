@@ -7,19 +7,7 @@ import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
 import Input from './components/Input/input'
 import AutoComplete from './components/AutoComplete/autoComplete'
-
-const listData = [
-  { value: 'bradley', number: 11 },
-  { value: 'pope', number: 1 },
-  { value: 'caruso', number: 4 },
-  { value: 'cook', number: 2 },
-  { value: 'cousins', number: 15 },
-  { value: 'james', number: 23 },
-  { value: 'AD', number: 3 },
-  { value: 'green', number: 14 },
-  { value: 'howard', number: 39 },
-  { value: 'kuzma', number: 0 },
-]
+import Upload from './components/Upload/upload'
 
 function App() {
   return (
@@ -133,6 +121,10 @@ function App() {
         }}
         // renderOption={item => <div>{item.value}</div>}
       ></AutoComplete>
+
+      {/* --------------------- 上传文件 --------------------- */}
+      {/* <Upload action={'https://jsonplaceholder.typicode.com/posts'}></Upload> */}
+      <Upload action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}></Upload>
     </div>
   )
 }
