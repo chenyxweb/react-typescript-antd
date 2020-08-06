@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { UploadFileItem } from './upload'
 import Icon from '../Icon/icon'
+import Progress from '../Progress/progress'
 
 export interface UploadListProps {
   fileList: UploadFileItem[]
@@ -13,7 +14,6 @@ export const UploadList: FC<UploadListProps> = props => {
   return (
     <ul className='viking-upload-list'>
       {fileList.map(item => {
-        console.log(item)
         return (
           <li className='viking-upload-list-item' key={item.uid}>
             {/* 文件图标和文件名 */}
@@ -25,12 +25,14 @@ export const UploadList: FC<UploadListProps> = props => {
             <span className='file-status'>
               {item.status === 'uploading' && <Icon icon='spinner' spin theme='primary'></Icon>}
               {item.status === 'success' && <Icon icon='check-circle' theme='success'></Icon>}
-              {item.status === 'error' && <Icon icon='times-circle' theme='danger'></Icon>}
+              {item.status === 'error' ? <Icon icon='times-circle' theme='danger'></Icon> : null}
             </span>
             {/* 删除文件 */}
             <span className='file-actions'>
               <Icon icon='times' onClick={() => onRemove && onRemove(item)}></Icon>
             </span>
+            {/* 进度条 */}
+            {item.status === 'uploading' ? <Progress percent={item.percent || 0}></Progress> : null}
           </li>
         )
       })}
