@@ -87,10 +87,12 @@ export const Upload: FC<UploadProps> = props => {
         },
       })
       .then(res => {
+        // 上传成功
         onSuccess && onSuccess(res.data, file)
         onChange && onChange(file)
       })
       .catch(error => {
+        // 上传失败
         onError && onError(error, file)
         onChange && onChange(file)
       })

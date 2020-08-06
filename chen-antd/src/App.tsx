@@ -123,8 +123,20 @@ function App() {
       ></AutoComplete>
 
       {/* --------------------- 上传文件 --------------------- */}
-      {/* <Upload action={'https://jsonplaceholder.typicode.com/posts'}></Upload> */}
-      <Upload action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}></Upload>
+
+      <Upload
+        // action={'https://jsonplaceholder.typicode.com/posts'}
+        action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
+        onProgress={(percentage: number, file: File) => {
+          console.log(percentage, file)
+        }}
+        onSuccess={(res: any, file: File) => {
+          console.log(res, file)
+        }}
+        onError={(res: any, file: File) => {
+          console.log(res, file)
+        }}
+      ></Upload>
     </div>
   )
 }
