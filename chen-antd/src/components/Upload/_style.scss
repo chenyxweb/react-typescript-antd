@@ -18,13 +18,12 @@
   }
   &.is-dragover {
     border: 2px dashed $primary;
-    background: rgba($primary, .2);
+    background: rgba($primary, 0.2);
   }
 }
 
-
 .viking-upload-list-item {
-  transition: all .5s cubic-bezier(.55,0,.1,1);
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   font-size: 14px;
   line-height: 1.8;
   margin-top: 5px;

@@ -1,6 +1,7 @@
-import React, { FC, useRef, ChangeEvent } from 'react'
+import React, { FC, useRef, ChangeEvent, useState } from 'react'
 import Button from '../Button'
 import axios from 'axios'
+import { UploadList } from './uploadList'
 
 export interface UploadProps {
   /** 上传地址 */
@@ -15,11 +16,36 @@ export interface UploadProps {
   onChange?: (file: File) => void
   /** 上传之前 */
   beforeUpload?: (file: File) => boolean | Promise<File>
+  /** 默认列表 */
+  defaultFileList?: UploadFileItem[]
+  /** 移除文件 */
+  onRemove?: (fileItem: UploadFileItem) => void
+}
+
+/** 文件列表的每一项的类型 */
+export interface UploadFileItem {
+  /** 文件id */
+  uid: string
+  /** 文件大小 */
+  size: number
+  /** 文件名 */
+  name: string
+  /** 文件状态 */
+  status?: 'ready' | 'uploading' | 'success' | 'error'
+  /** 上传百分比 */
+  percent?: number
+  /** 原始文件 */
+  raw?: File
+  /** 上传成功的信息 */
+  response?: any
+  /** 上传失败的信息 */
+  error?: any
 }
 
 export const Upload: FC<UploadProps> = props => {
-  const { action, onProgress, onSuccess, onError, beforeUpload, onChange } = props
+  const { action, onProgress, onSuccess, onError, beforeUpload, onChange, defaultFileList, onRemove } = props
   const inputRef = useRef<HTMLInputElement>(null)
+  const [fileList, setFileList] = useState<UploadFileItem[]>(defaultFileList || []) // 文件列表
 
   // 点击上传文件按钮时
   const handleButtonClick = () => {
@@ -68,9 +94,20 @@ export const Upload: FC<UploadProps> = props => {
     })
   }
 
-  // 请求
+  // 请求 将file文件上传
   const post = (file: File) => {
-    // 创建FormData
+    // 1. 创建文件列表项
+    const fileListItem: UploadFileItem = {
+      uid: 'file' + Date.now(),
+      size: file.size,
+      name: file.name,
+      status: 'ready',
+      percent: 0,
+      raw: file,
+    }
+    // 2. 保存到fileList内
+    setFileList([fileListItem, ...fileList])
+    // 3. 创建FormData,上传文件
     const formData = new FormData()
     formData.append(file.name, file)
     axios
@@ -78,11 +115,25 @@ export const Upload: FC<UploadProps> = props => {
         headers: {
           'Content-type': 'multipart/form-data', // 文件上传时需要设置 二进制
         },
-        // axios 支持监控上传进度
+        // 4. axios 支持监控上传进度, 上传过程中
         onUploadProgress: e => {
           let percentage = Math.round((e.loaded / e.total) * 100) || 0 // 计算百分比
           if (percentage < 100) {
             onProgress && onProgress(percentage, file)
+
+            //  更新当前项信息
+            setFileList(preFileList => {
+              console.log(preFileList)
+              // 拿到上一次setState后最新的列表, 返回需要新更新的值
+              // 取得当前上传项,实时更新当前项的相关数据
+              return preFileList.map(item => {
+                if (item.uid === fileListItem.uid) {
+                  return { ...item, percent: percentage, status: 'uploading' }
+                } else {
+                  return item
+                }
+              })
+            })
           }
         },
       })
@@ -90,11 +141,39 @@ export const Upload: FC<UploadProps> = props => {
         // 上传成功
         onSuccess && onSuccess(res.data, file)
         onChange && onChange(file)
+
+        //  更新当前项信息
+        setFileList(preFileList => {
+          console.log(preFileList)
+          // 拿到上一次setState后最新的列表, 返回需要新更新的值
+          // 取得当前上传项,实时更新当前项的相关数据
+          return preFileList.map(item => {
+            if (item.uid === fileListItem.uid) {
+              return { ...item, percent: 100, status: 'success', response: res.data }
+            } else {
+              return item
+            }
+          })
+        })
       })
       .catch(error => {
         // 上传失败
         onError && onError(error, file)
         onChange && onChange(file)
+
+        //  更新当前项信息
+        setFileList(preFileList => {
+          console.log(preFileList)
+          // 拿到上一次setState后最新的列表, 返回需要新更新的值
+          // 取得当前上传项,实时更新当前项的相关数据
+          return preFileList.map(item => {
+            if (item.uid === fileListItem.uid) {
+              return { ...item, status: 'error', error: error }
+            } else {
+              return item
+            }
+          })
+        })
       })
   }
 
@@ -110,6 +189,16 @@ export const Upload: FC<UploadProps> = props => {
         className='viking-file-input'
         style={{ display: 'none' }}
       />
+      <UploadList
+        fileList={fileList}
+        onRemove={fileItem => {
+          console.log(fileItem)
+          // 删除这一项
+          setFileList(fileList.filter(item => item.uid !== fileItem.uid))
+
+          onRemove && onRemove(fileItem)
+        }}
+      ></UploadList>
     </div>
   )
 }

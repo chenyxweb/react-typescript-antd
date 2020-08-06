@@ -125,8 +125,8 @@ function App() {
       {/* --------------------- 上传文件 --------------------- */}
 
       <Upload
-        // action={'https://jsonplaceholder.typicode.com/posts'}
-        action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
+        action={'https://jsonplaceholder.typicode.com/posts/'}
+        // action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
         onProgress={(percentage: number, file: File) => {
           console.log(percentage, file)
         }}
@@ -135,6 +135,14 @@ function App() {
         }}
         onError={(res: any, file: File) => {
           console.log(res, file)
+        }}
+        defaultFileList={[
+          { uid: '1', size: 111, name: '1.png', status: 'uploading', percent: 15 },
+          { uid: '2', size: 222, name: '2.jpg', status: 'success', percent: 50 },
+          { uid: '3', size: 333, name: '3.jpeg', status: 'error', percent: 70 },
+        ]}
+        onRemove={fileItem => {
+          // console.log(fileItem)
         }}
       ></Upload>
     </div>
