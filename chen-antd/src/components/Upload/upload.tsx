@@ -20,6 +20,10 @@ export interface UploadProps {
   defaultFileList?: UploadFileItem[]
   /** 移除文件 */
   onRemove?: (fileItem: UploadFileItem) => void
+  /** 自定义header */
+  header?: Headers
+  /** 指定文件名 */
+  fileName?: string
 }
 
 /** 文件列表的每一项的类型 */
@@ -54,7 +58,7 @@ export const Upload: FC<UploadProps> = props => {
     }
   }
 
-  // input change
+  // input标签 change的时候
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
