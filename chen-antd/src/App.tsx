@@ -7,7 +7,7 @@ import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
 import Input from './components/Input/input'
 import AutoComplete from './components/AutoComplete/autoComplete'
-import Upload from './components/Upload/upload'
+import Upload, { UploadFileItem } from './components/Upload/upload'
 
 function App() {
   return (
@@ -130,11 +130,14 @@ function App() {
         onProgress={(percentage: number, file: File) => {
           console.log(percentage, file)
         }}
-        onSuccess={(res: any, file: File) => {
-          console.log(res, file)
+        onSuccess={(res: any, fileListItem: UploadFileItem) => {
+          console.log('success: ', res, fileListItem)
         }}
-        onError={(res: any, file: File) => {
-          console.log(res, file)
+        onError={(res: any, fileListItem: UploadFileItem) => {
+          console.log('error: ', res, fileListItem)
+        }}
+        onChange={(fileListItem: UploadFileItem, fileList: UploadFileItem[]) => {
+          console.log('change: ', fileListItem, fileList)
         }}
         defaultFileList={[
           { uid: '1', size: 111, name: '1.png', status: 'uploading', percent: 15 },
@@ -152,7 +155,7 @@ function App() {
         // accept=".png"
         draggable
       >
-        <Button btnType="primary">
+        <Button btnType='primary'>
           <Icon icon='upload'></Icon>&nbsp; 上传
         </Button>
       </Upload>

@@ -26,7 +26,7 @@ export const Tabs: FC<TabsProps> = ({ defaultIndex, onSelect, children }) => {
           'is-active': currentIndex === index,
           'is-disabled': childElement.props.disable,
         })
-        console.log(childElement)
+        // console.log(childElement)
         if (currentIndex === index) {
           tabsContent = childElement
         }

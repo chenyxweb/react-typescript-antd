@@ -1,7 +1,7 @@
 import React, { FC, useRef, ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import { UploadList } from './uploadList'
-import Dragger from '../Dragger/dragger'
+import Dragger from './dragger'
 
 export interface UploadProps {
   /** 上传地址 */
@@ -9,11 +9,11 @@ export interface UploadProps {
   /** 上传过程 */
   onProgress?: (percentage: number, file: File) => void
   /** 上传成功 */
-  onSuccess?: (res: any, file: File) => void
+  onSuccess?: (res: any, fileListItem: UploadFileItem) => void
   /** 上传错误 */
-  onError?: (err: any, file: File) => void
+  onError?: (err: any, fileListItem: UploadFileItem) => void
   /** 上传状态改变: 成功失败时都触发 */
-  onChange?: (file: File) => void
+  onChange?: (fileListItem: UploadFileItem, fileList: UploadFileItem[]) => void
   /** 上传之前 */
   beforeUpload?: (file: File) => boolean | Promise<File>
   /** 默认列表 */
@@ -129,7 +129,7 @@ export const Upload: FC<UploadProps> = props => {
   // 请求 将file文件上传
   const post = (file: File) => {
     // 1. 创建文件列表项
-    const fileListItem: UploadFileItem = {
+    let fileListItem: UploadFileItem = {
       uid: 'file' + Date.now(),
       size: file.size,
       name: file.name,
@@ -181,41 +181,51 @@ export const Upload: FC<UploadProps> = props => {
         withCredentials: withCredentials, // 是否携带cookie
       })
       .then(res => {
-        // 上传成功
-        onSuccess && onSuccess(res.data, file)
-        onChange && onChange(file)
-
         //  更新当前项信息
         setFileList(preFileList => {
           console.log(preFileList)
           // 拿到上一次setState后最新的列表, 返回需要新更新的值
           // 取得当前上传项,实时更新当前项的相关数据
-          return preFileList.map(item => {
+          const newFileList: UploadFileItem[] = preFileList.map(item => {
             if (item.uid === fileListItem.uid) {
-              return { ...item, percent: 100, status: 'success', response: res.data }
+              fileListItem = { ...item, percent: 100, status: 'success', response: res.data }
+              return fileListItem
             } else {
               return item
             }
           })
+
+          // 上传成功
+          onSuccess && onSuccess(res.data, fileListItem)
+          onChange && onChange(fileListItem, newFileList)
+
+          return newFileList
         })
       })
       .catch(error => {
         // 上传失败
-        onError && onError(error, file)
-        onChange && onChange(file)
+        // onError && onError(error, file)
+        // onChange && onChange(file)
 
         //  更新当前项信息
         setFileList(preFileList => {
           console.log(preFileList)
           // 拿到上一次setState后最新的列表, 返回需要新更新的值
           // 取得当前上传项,实时更新当前项的相关数据
-          return preFileList.map(item => {
+
+          const newFileList: UploadFileItem[] = preFileList.map(item => {
             if (item.uid === fileListItem.uid) {
-              return { ...item, status: 'error', error: error }
+              fileListItem = { ...item, status: 'error', error: error }
+              return fileListItem
             } else {
               return item
             }
           })
+
+          onError && onError(error, fileListItem)
+          onChange && onChange(fileListItem, newFileList)
+
+          return newFileList
         })
       })
   }
