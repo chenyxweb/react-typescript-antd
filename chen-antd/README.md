@@ -822,3 +822,71 @@ useEffect(()=>{
   > 
   > ```
   >
+
+### 08 ts描述一个对象的形状
+```tsx
+const header:{ [key: string]: any} = {
+  aaa:123,
+  bbb:456,
+}
+console.log(header.aaa)
+
+```
+
+### 09 axios请求配置
+```js
+  // `withCredentials` 表示跨域请求时是否需要使用凭证, 是否携带cookie
+  withCredentials: false, // 默认的
+
+```
+
+### 10 Object.keys的使用(用来遍历对象)
+```js
+// 添加额外添加的请求体参数
+if (data) {
+  Object.keys(data).forEach(key => {
+    formData.append(key, data[key])
+  })
+}
+
+```
+
+### 11 useState hook 的回调函数方式
+```tsx
+// setFileList([fileListItem, ...fileList]) // 此方式多次setState将会丢失之前文件列表项
+
+// 每次setState都拿到上一次修改完的最新的state
+setFileList(prevFileList => {
+  return [fileListItem, ...prevFileList]
+})
+
+```
+
+### 12 拖拽放下时, 如何拿到被拖拽的文件
+```tsx
+<div
+  className={classes}
+  // 拖拽进入
+  onDragOver={(e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setIsDragOver(true)
+  }}
+  // 拖拽离开
+  onDragLeave={(e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setIsDragOver(false)
+  }}
+  // 拖拽放下
+  onDrop={(e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    // onDrop事件的e中拿到
+    console.log(e.dataTransfer.files)
+    // 子传父
+        onDropFile(e.dataTransfer.files)
+  }}
+>
+  {children}
+</div>
+
+
+```

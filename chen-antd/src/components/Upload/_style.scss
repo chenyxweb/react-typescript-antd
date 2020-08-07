@@ -13,9 +13,14 @@
   width: 360px;
   height: 180px;
   text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  // hover时添加样式
   &:hover {
     border: 1px dashed $primary;
   }
+  // 拖拽进入时添加此类名
   &.is-dragover {
     border: 2px dashed $primary;
     background: rgba($primary, 0.2);

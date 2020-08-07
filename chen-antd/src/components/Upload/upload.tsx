@@ -1,7 +1,7 @@
 import React, { FC, useRef, ChangeEvent, useState } from 'react'
-import Button from '../Button'
 import axios from 'axios'
 import { UploadList } from './uploadList'
+import Dragger from '../Dragger/dragger'
 
 export interface UploadProps {
   /** 上传地址 */
@@ -20,10 +20,20 @@ export interface UploadProps {
   defaultFileList?: UploadFileItem[]
   /** 移除文件 */
   onRemove?: (fileItem: UploadFileItem) => void
-  /** 自定义header */
-  header?: Headers
+  /** 自定义请求头 headers */
+  headers?: { [key: string]: any }
   /** 指定文件名 */
-  fileName?: string
+  name?: string
+  /** 额外的请求体数据 */
+  data?: { [key: string]: any }
+  /** 是否携带cookie */
+  withCredentials?: boolean
+  /** 文件多选 */
+  multiple?: boolean
+  /** 接收的文件类型 */
+  accept?: string
+  /** 是否可以拖拽上传 */
+  draggable?: boolean
 }
 
 /** 文件列表的每一项的类型 */
@@ -47,7 +57,24 @@ export interface UploadFileItem {
 }
 
 export const Upload: FC<UploadProps> = props => {
-  const { action, onProgress, onSuccess, onError, beforeUpload, onChange, defaultFileList, onRemove } = props
+  const {
+    action,
+    onProgress,
+    onSuccess,
+    onError,
+    beforeUpload,
+    onChange,
+    defaultFileList,
+    onRemove,
+    headers,
+    name,
+    data,
+    withCredentials,
+    multiple,
+    accept,
+    children,
+    draggable,
+  } = props
   const inputRef = useRef<HTMLInputElement>(null)
   const [fileList, setFileList] = useState<UploadFileItem[]>(defaultFileList || []) // 文件列表
 
@@ -70,7 +97,7 @@ export const Upload: FC<UploadProps> = props => {
     }
   }
 
-  // 上传文件
+  // 上传文件列表
   const uploadFile = (files: FileList) => {
     // 将FileList转化成真数组
     const reqFiles = Array.from(files)
@@ -82,6 +109,7 @@ export const Upload: FC<UploadProps> = props => {
         if (res && res instanceof Promise) {
           // beforeUpload 返回值为promise
           res.then(resp => {
+            // 将promise完成时的结果上传
             post(resp)
           })
         } else {
@@ -110,14 +138,24 @@ export const Upload: FC<UploadProps> = props => {
       raw: file,
     }
     // 2. 保存到fileList内
-    setFileList([fileListItem, ...fileList])
+    // setFileList([fileListItem, ...fileList])
+    setFileList(prevFileList => {
+      return [fileListItem, ...prevFileList]
+    })
     // 3. 创建FormData,上传文件
     const formData = new FormData()
-    formData.append(file.name, file)
+    formData.append(name || file.name, file)
+    // 用户添加额外的请求体参数
+    if (data) {
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key])
+      })
+    }
     axios
       .post(action, formData, {
         headers: {
-          'Content-type': 'multipart/form-data', // 文件上传时需要设置 二进制
+          'Content-Type': 'multipart/form-data', // 文件上传时需要设置 二进制
+          ...headers, // 用户自定义添加的headers
         },
         // 4. axios 支持监控上传进度, 上传过程中
         onUploadProgress: e => {
@@ -127,7 +165,7 @@ export const Upload: FC<UploadProps> = props => {
 
             //  更新当前项信息
             setFileList(preFileList => {
-              console.log(preFileList)
+              // console.log(preFileList)
               // 拿到上一次setState后最新的列表, 返回需要新更新的值
               // 取得当前上传项,实时更新当前项的相关数据
               return preFileList.map(item => {
@@ -140,6 +178,7 @@ export const Upload: FC<UploadProps> = props => {
             })
           }
         },
+        withCredentials: withCredentials, // 是否携带cookie
       })
       .then(res => {
         // 上传成功
@@ -183,15 +222,32 @@ export const Upload: FC<UploadProps> = props => {
 
   return (
     <div className='viking-upload-component'>
-      <Button btnType='primary' onClick={handleButtonClick}>
-        上传文件
-      </Button>
+      {/* <Button btnType='primary' onClick={handleButtonClick}>
+        {children}
+      </Button> */}
+      <div className='viking-upload-input' style={{ display: 'inline-block' }} onClick={handleButtonClick}>
+        {draggable ? (
+          <Dragger
+            onDropFile={fileList => {
+              // 拿到drop放下的文件列表,进行上传操作
+              uploadFile(fileList)
+            }}
+          >
+            {children}
+          </Dragger>
+        ) : (
+          children
+        )}
+      </div>
+      {/* input元素进行上传 */}
       <input
         onChange={handleInputChange}
         type='file'
         ref={inputRef}
         className='viking-file-input'
         style={{ display: 'none' }}
+        multiple={!!multiple} // 是否多选
+        accept={accept} // 接收的文件类型
       />
       <UploadList
         fileList={fileList}
@@ -205,6 +261,10 @@ export const Upload: FC<UploadProps> = props => {
       ></UploadList>
     </div>
   )
+}
+
+Upload.defaultProps = {
+  name: 'file',
 }
 
 export default Upload

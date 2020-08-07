@@ -125,8 +125,8 @@ function App() {
       {/* --------------------- 上传文件 --------------------- */}
 
       <Upload
-        action={'https://jsonplaceholder.typicode.com/posts/'}
-        // action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
+        // action={'https://jsonplaceholder.typicode.com/posts/'}
+        action={'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
         onProgress={(percentage: number, file: File) => {
           console.log(percentage, file)
         }}
@@ -144,7 +144,18 @@ function App() {
         onRemove={fileItem => {
           // console.log(fileItem)
         }}
-      ></Upload>
+        headers={{ 'aaa-bbb': 'chen' }} // 请求头
+        name='chen-img' // 文件名
+        data={{ time: '2020-8-8' }} // 添加的数据
+        multiple // 多选
+        // accept="image/*" // 接收的文件类型
+        // accept=".png"
+        draggable
+      >
+        <Button btnType="primary">
+          <Icon icon='upload'></Icon>&nbsp; 上传
+        </Button>
+      </Upload>
     </div>
   )
 }

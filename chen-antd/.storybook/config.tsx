@@ -37,7 +37,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
-// 全局控制组件展示样式
+// 全局storybook页面,控制组件展示样式
 const storyWrapper = (storyFn: any) => (
   <div style={{ padding: '20px 40px' }}>
     <h3>组件演示</h3>
