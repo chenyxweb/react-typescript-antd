@@ -14,6 +14,14 @@ export interface ProgressProps {
   theme?: ThemeProps
 }
 
+/**
+ * ### 引入
+ * ~~~js
+ * import { Progress } form 'chen-antd'
+ *
+ * ~~~
+ *
+ */
 export const Progress: FC<ProgressProps> = props => {
   const { percent, progressHeight, showText, styles, theme } = props
   return (

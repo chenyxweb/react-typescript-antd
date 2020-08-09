@@ -56,6 +56,14 @@ export interface UploadFileItem {
   error?: any
 }
 
+/**
+ * ### 引入
+ * ~~~js
+ * import { Upload } form 'chen-antd'
+ *
+ * ~~~
+ *
+ */
 export const Upload: FC<UploadProps> = props => {
   const {
     action,

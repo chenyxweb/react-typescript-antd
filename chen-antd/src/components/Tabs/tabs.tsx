@@ -2,7 +2,7 @@ import React, { FC, useState, Children, FunctionComponentElement, cloneElement }
 import { TabItemProps } from './tabItem'
 import classNames from 'classnames'
 
-interface TabsProps {
+export interface TabsProps {
   /** 默认选中的tab */
   defaultIndex?: number
   /** tab选中时的回调 */

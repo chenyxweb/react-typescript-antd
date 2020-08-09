@@ -1,6 +1,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Menu, MenuItem, SubMenu } from '../components/Menu'
+// import { Menu, MenuItem, SubMenu } from '../components/Menu'
+import Menu from '../components/Menu'
+const MenuItem = Menu.Item
+const SubMenu = Menu.SubMenu
 
 // 水平menu
 const HorizontalMenu = () => (
@@ -48,7 +51,10 @@ storiesOf('Menu', module)
       text: `
         ### 引入
         ~~~js
-        import { Menu, MenuItem, SubMenu } from 'chen-antd'
+        import { Menu } from 'chen-antd'
+        
+        const MenuItem = Menu.Item
+        const SubMenu = Menu.SubMenu
         ~~~
         `,
     },

@@ -1,6 +1,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { Tabs, TabItem } from '../components/Tabs'
+// import { Tabs, TabItem } from '../components/Tabs'
+import Tabs from '../components/Tabs'
+
+const TabItem = Tabs.Item
 
 const defaultTabs = () => {
   return (
@@ -61,7 +64,9 @@ storiesOf('Tabs', module)
       text: `
       ### 引入
       ~~~js
-      import { Tabs, TabItem } from 'chen-antd'
+      import { Tabs } from 'chen-antd'
+      
+      const TabItem = Tabs.Item
       ~~~
     `,
     },
