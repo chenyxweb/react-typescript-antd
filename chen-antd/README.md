@@ -739,11 +739,10 @@ export default TransMenu
 
 
 
-# 13 打包文件
+# 13 打包文件及配置
 
-## 13.1 生成js文件
 
-###  13.1.1 ts打包配置
+##  13.1 ts打包配置
 
   ```json
   // tsconfig.build.json 文件
@@ -768,7 +767,7 @@ export default TransMenu
   }
   ```
 
-### 13.1.2 配置打包命令行
+## 13.2 配置打包命令行
 
   ```json
   // package.json 文件
@@ -778,12 +777,12 @@ export default TransMenu
   "build-css": "node-sass src/styles/index.scss build/index.css",
   ```
 
-### 13.1.3 执行命令行
+## 13.3 执行命令行
  ```bash
  yarn build // 打包生成ts和css文件
  ```
 
-### 13.1.4 优化(yarn build 之前先删除build目录)
+## 13.4 优化(yarn build 之前先删除build目录)
 
 ```js
 // 1.安装rimraf
@@ -793,6 +792,41 @@ yarn add rimraf // The UNIX command rm -rf for node 让node支持linux删除命�
 +  "clean": "rimraf ./build"
 ~  "build": "npm run clean && npm run build-ts && npm run build-css" // 先删除build文件夹, 再打包生成js文件, 再打包生成css文件
 
+```
+
+## 13.5 组件库入口配置
+
+```json
+// package.json中添加如下, 指定组件库入口
+
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+```
+
+
+
+# 14 npm link 实现本地测试组件库
+
+> 通常: 组件库升级想要使用新版本 -> 修改package.json 组件库版本号 -> npm install 重新安装新版本 ->  使用新版本    很麻烦
+>
+> 可以使用npm link 链接本地组件库, 进行测试使用
+
+```js
+// 使用步骤
+
+// 1. 组件库开发目录(chen-antd) -->  运行 npm link --> 创建软连接到全局 c/**/node_module
+// 2. 测试项目目录(test-chen-antd) --> 运行 npm link chen-antd --> 创建软连接 连接到全局的软连接
+
+// 测试项目 --> 连接到 全局 --> 全局 连接到chen-antd
+// E:\06 project\test-chen-antd\node_modules\chen-antd -> C:\Users\10908\AppData\Roaming\npm\node_modules\chen-antd -> E:\06 project\react-typescript-antd\chen-antd
+
+// 3. 测试项目中就可以直接使用组件库了
+import 'chen-antd/build/index.css'
+import { Button, Icon } from 'chen-antd'
+
+<Button btnType='primary'>chen-antd按钮</Button>
+<Icon icon='search'></Icon>
 ```
 
 
