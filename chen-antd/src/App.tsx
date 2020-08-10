@@ -1,13 +1,17 @@
 import React from 'react'
 import Button from './components/Button'
-import { Menu, MenuItem, SubMenu } from './components/Menu'
+import Menu from './components/Menu'
 import Alert from './components/Alert/alert'
-import { Tabs, TabItem } from './components/Tabs'
+import Tabs from './components/Tabs'
 import Icon from './components/Icon/icon'
 import Demo from './components/Demo'
 import Input from './components/Input/input'
 import AutoComplete from './components/AutoComplete/autoComplete'
 import Upload, { UploadFileItem } from './components/Upload/upload'
+
+const MenuItem = Menu.Item
+const SubMenu = Menu.SubMenu
+const TabItem = Tabs.Item
 
 function App() {
   return (

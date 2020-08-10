@@ -739,9 +739,61 @@ export default TransMenu
 
 
 
+# 13 打包文件
 
+## 13.1 生成js文件
 
+###  13.1.1 ts打包配置
 
+  ```json
+  // tsconfig.build.json 文件
+  
+  // 双tsconfig 配置 , 和build有关的ts配置
+  {
+    "compilerOptions": {
+      "outDir": "build", // 输出文件到build目录下
+      "module": "ESNext", // 模块化的类型,目前使用模块化的版本
+      "target": "ES5", // 生成代码的es的版本
+      "declaration": true, // 给js文件添加.d.ts类型定义
+      "jsx": "react",
+      "moduleResolution": "node", // 模块的解析方式,寻找方式 (ts中模块寻找方式和node中不一样:https://www.typescriptlang.org/docs/handbook/module-resolution.html#module-resolution-strategies)
+      "allowSyntheticDefaultImports": true // import React from "react" 代替 import * as React from "react"使用 , https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports
+    },
+    "include": ["src"], // 编译包含哪些文件
+    "exclude": [
+      // ** 任意层级的目录
+      "src/**/*.test.tsx",
+      "src/**/*.stories.tsx"
+    ] // 排除编译的文件
+  }
+  ```
+
+### 13.1.2 配置打包命令行
+
+  ```json
+  // package.json 文件
+  
+  "build": "npm run build-ts && npm run build-css", // 先打包生成js文件, 再打包生成css文件 使用 '&&' 连接
+  "build-ts": "tsc --project tsconfig.build.json",
+  "build-css": "node-sass src/styles/index.scss build/index.css",
+  ```
+
+### 13.1.3 执行命令行
+ ```bash
+ yarn build // 打包生成ts和css文件
+ ```
+
+### 13.1.4 优化(yarn build 之前先删除build目录)
+
+```js
+// 1.安装rimraf
+yarn add rimraf // The UNIX command rm -rf for node 让node支持linux删除命令
+
+// 2.修改package.json文件
++  "clean": "rimraf ./build"
+~  "build": "npm run clean && npm run build-ts && npm run build-css" // 先删除build文件夹, 再打包生成js文件, 再打包生成css文件
+
+```
 
 
 
