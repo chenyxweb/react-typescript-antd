@@ -1,0 +1,18 @@
+// 双tsconfig 配置 , 和build有关的ts配置
+{
+  "compilerOptions": {
+    "outDir": "build", // 输出文件到build目录下
+    "module": "ESNext", // 模块化的类型,目前使用模块化的版本
+    "target": "ES5", // 生成代码的es的版本
+    "declaration": true, // 添加类型定义
+    "jsx": "react",
+    "moduleResolution": "node", // 模块的解析方式,寻找方式 (ts中模块寻找方式和node中不一样:https://www.typescriptlang.org/docs/handbook/module-resolution.html#module-resolution-strategies)
+    "allowSyntheticDefaultImports": true // import React from "react" 代替 import * as React from "react"使用 , https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports
+  },
+  "include": ["src"], // 编译包含哪些文件
+  "exclude": [
+    // ** 任意层级的目录
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ] // 排除编译的文件
+}
