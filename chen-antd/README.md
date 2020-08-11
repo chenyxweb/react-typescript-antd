@@ -785,7 +785,7 @@ export default TransMenu
 ## 13.4 优化(yarn build 之前先删除build目录)
 
 ```js
-// 1.安装rimraf
+// 1.安装rimraf 删除文件的命令行工具
 yarn add rimraf // The UNIX command rm -rf for node 让node支持linux删除命令
 
 // 2.修改package.json文件
@@ -840,6 +840,17 @@ See https://fb.me/react-invalid-hook-call for tips about how to debug and fix th
 // 解决
 chen-antd 目录下执行 npm link  ../../test-chen-antd/node_modules/react   [参考](https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react)
 ```
+
+# 15 发布npm 
+
+## 注册账户
+
+```js
+npm whoami // 查看是否登录
+npm adduser // 登录
+```
+
+
 
 
 
