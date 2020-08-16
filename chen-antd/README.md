@@ -782,7 +782,7 @@ export default TransMenu
  yarn build // 打包生成ts和css文件
  ```
 
-## 13.4 优化(yarn build 之前先删除build目录)
+## 13.4 优化(rimraf --- yarn build 之前先删除build目录)
 
 ```js
 // 1.安装rimraf 删除文件的命令行工具
@@ -841,21 +841,61 @@ See https://fb.me/react-invalid-hook-call for tips about how to debug and fix th
 chen-antd 目录下执行 npm link  ../../test-chen-antd/node_modules/react   [参考](https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react)
 ```
 
-# 15 发布npm 
+# 15 发布组件库到npm 
 
 ## 注册账户
 
 ```js
 npm whoami // 查看是否登录
 npm adduser // 登录
+
+// 注意 npm 源切换成npm config set registry https://registry.npmjs.org/
 ```
 
+## package.json修改
 
+```json
+version版本规则 , [参照](semver.org/lang/zh-CN/) 
+"private": false,                   
+desription:"",
+author:"",
+license:"MIT",
+"keywords": [
+        "Component",
+        "UI",
+        "react",
+        "TypeScript"
+],
+homepage:"https://github.com/chenyxweb/react-typescript-antd/tree/master/chen-antd", // 项目主页
+repository:{
+    "type":"git",
+    "url":"https://github.com/chenyxweb/react-typescript-antd/tree/master/chen-antd"
+},
+files:["dist"], // 指定要上传的文件
 
+scripts:{
+    prepublish:"npm run build", // 运行npm publish 时自动运行的脚本
+}
+```
 
+## 精简package.josn 依赖
+- 将开发依赖移动到devDependencies中(避免用户安装使用组件库的时候安装组件库开发时的依赖)
+- peerDependencies
+```json
+// package.json
 
+peerDependencies:{
+// 安装组件库使不会安装 Dependencies 中react 和 react-dom 依赖, 同时用户自己没有安装react和react-dom 时进行警告, 同时将react 和 react-dom依赖移动到devDependencies中防止开发组件库过程中没有react依赖
+	react:">=16.8.0",
+	"react-dom":">=16.8.0"
+}
+```
 
+## 上传发布
 
+```bash
+npm publish
+```
 
 # 99 乱七八糟
 

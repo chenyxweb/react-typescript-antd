@@ -1,7 +1,7 @@
 // 双tsconfig 配置 , 和build有关的ts配置
 {
   "compilerOptions": {
-    "outDir": "build", // 输出文件到build目录下
+    "outDir": "dist", // 输出文件到dist目录下
     "module": "ESNext", // 模块化的类型,目前使用模块化的版本
     "target": "ES5", // 生成代码的es的版本
     "declaration": true, // 给js文件添加.d.ts类型定义
