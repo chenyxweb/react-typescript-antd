@@ -897,6 +897,33 @@ peerDependencies:{
 npm publish
 ```
 
+## 代码检查
+
+```bash
+// https://eslint.bootcss.com/docs/user-guide/command-line-interface#--ext
+// https://eslint.bootcss.com/docs/user-guide/command-line-interface#--max-warnings
+
+"lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+```
+
+## cross-env(跨平台设置环境变量)
+
+```js
+// 你可以通过设置环境变量CI 强制构建执行 linter 警告检查。如果遇到任何警告，则构建失败
+// https://www.html.cn/create-react-app/docs/running-tests/#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90
+
+// 设置CI=true
+"test:nowatch": "cross-env CI=true react-scripts test"
+
+// 修改 prepublish 脚本 (测试通过-->代码校验通过-->才打包代码发布)
+"prepublish": "npm run test:nowatch && npm run lint && npm run build"
+
+```
+
+
+
+
+
 # 99 乱七八糟
 
 ### 01  [classnames](https://github.com/JedWatson/classnames)库, 将classnames有条件的连接在一起
