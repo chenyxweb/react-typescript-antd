@@ -922,6 +922,18 @@ npm publish
 
 
 
+# 16 CI CD
+
+> CI: 持续集成
+>
+> CD: 持续交付,持续部署
+
+travis-ci.com 自动化平台
+
+```js
+// 实现git push 时候, 自动npm publish
+```
+
 
 
 # 99 乱七八糟
