@@ -928,11 +928,30 @@ npm publish
 >
 > CD: 持续交付,持续部署
 
-travis-ci.com 自动化平台
+travis-ci.com 自动化部署
 
 ```js
 // 实现git push 时候, 自动npm publish
+
+.travis.yml 文件
+
 ```
+
+
+
+# 17 [部署组件库文档storybook](https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site)
+
+```js
+// 1. 创建公共仓库  chenyxweb.github.io
+
+// 2. clone下来 , 添加静态资源文件
+
+// 3. 访问  chenyxweb.github.io/xxx/index.html
+```
+
+
+
+
 
 
 
