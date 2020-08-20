@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/static/css/main.da1145e6.chunk.css",
+    "main.js": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/main.ab8668784474278c80a9.bundle.js",
+    "main.css.map": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/static/css/main.da1145e6.chunk.css.map",
+    "main.js.map": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/main.ab8668784474278c80a9.bundle.js.map",
+    "runtime~main.js": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/runtime~main.ab8668784474278c80a9.bundle.js",
+    "runtime~main.js.map": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/runtime~main.ab8668784474278c80a9.bundle.js.map",
+    "vendors~main.css": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/static/css/vendors~main.f8f248a5.chunk.css",
+    "vendors~main.js": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/vendors~main.ab8668784474278c80a9.bundle.js",
+    "vendors~main.css.map": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/static/css/vendors~main.f8f248a5.chunk.css.map",
+    "vendors~main.js.map": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/vendors~main.ab8668784474278c80a9.bundle.js.map",
+    "iframe.html": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/iframe.html",
+    "precache-manifest.7c71a996217c114f0cebdb031c941807.js": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/precache-manifest.7c71a996217c114f0cebdb031c941807.js",
+    "service-worker.js": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/service-worker.js",
+    "vendors~main.ab8668784474278c80a9.bundle.js.LICENSE.txt": "/chenyxweb/react-typescript-antd/tree/master/chen-antd/vendors~main.ab8668784474278c80a9.bundle.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "runtime~main.ab8668784474278c80a9.bundle.js",
+    "static/css/vendors~main.f8f248a5.chunk.css",
+    "vendors~main.ab8668784474278c80a9.bundle.js",
+    "static/css/main.da1145e6.chunk.css",
+    "main.ab8668784474278c80a9.bundle.js"
+  ]
+}

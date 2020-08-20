@@ -14,4 +14,6 @@ import { storiesOf } from '@storybook/react'
 //   name: 'to Storybook',
 // };
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />)
+storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />, {
+  info: { disable: true }, // 不展示info
+})
