@@ -895,7 +895,12 @@ peerDependencies:{
 
 ```bash
 npm publish
+
+# 发布测试版本 
+npm publish --tag beta
+
 ```
+
 
 ## 代码检查
 
