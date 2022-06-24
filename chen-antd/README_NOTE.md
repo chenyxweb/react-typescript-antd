@@ -894,13 +894,14 @@ peerDependencies:{
 ## 上传发布
 
 ```bash
+# 发布生产  更新版本 1.0.1
 npm publish
 
-# 发布测试版本 
+# 发布测试版本  更新版本 1.0.2-beta.1  
+# 不加 --tag beta 会变成正式版本
 npm publish --tag beta
 
 ```
-
 
 ## 代码检查
 
